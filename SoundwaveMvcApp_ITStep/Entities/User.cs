@@ -1,0 +1,18 @@
+﻿namespace SoundwaveMvcApp_ITStep.Entities
+{
+    public class User
+    {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public int Likes { get; set; }
+        public int Playlists { get; set; }
+        public bool IsAdmin { get; set; }
+        /*public int Comments { get; set; }
+        public int Follows { get; set; }
+        public bool IsPro { get; set ;}*/
+
+        public ICollection<Song>? Songs { get; set; }
+    }
+}

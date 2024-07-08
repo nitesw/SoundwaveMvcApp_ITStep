@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Users";
+}
+@model List<User>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
+            <th scope="col">Likes</th>
+            <th scope="col">Playlists</th>
+            @* <th scope="col">Comments</th>
+            <th scope="col">Follows</th>
+            <th scope="col">Uploaded Songs</th> *@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <th scope="row">@user.Id</th>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+                <td>@user.Password</td>
+                <td>@user.Likes</td>
+                <td>@user.Playlists</td>
+            </tr>
+        } 
+    </tbody>
+</table>
