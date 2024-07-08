@@ -7,7 +7,7 @@ namespace SoundwaveMvcApp_ITStep.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        public DbSet<Song> Songs { get; set; }
+        public DbSet<Track> Tracks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -66,11 +66,11 @@ namespace SoundwaveMvcApp_ITStep.Data
                 new Genre() { Id = 31, Name = "World" }
             });
 
-            modelBuilder.Entity<Song>().HasIndex(s => s.Title).IsUnique();
-            modelBuilder.Entity<Song>().HasData(new List<Song>()
+            modelBuilder.Entity<Track>().HasIndex(s => s.Title).IsUnique();
+            modelBuilder.Entity<Track>().HasData(new List<Track>()
             {
-                new Song() {Id = 1, Title = "Test Song", GenreId = 2, IsPublic = true, SongUrl = "randomsite.com/songurl.mp3", UserId = 1, UploadDate = DateTime.Now, AdditionalTags = "true, tags", ArtistName = "Me", Description = "True test music" },
-                new Song() {Id = 2, Title = "Test Song 2", GenreId = 1, IsPublic = false, SongUrl = "aaa.com/mp3", UserId = 2, UploadDate = DateTime.Now }
+                new Track() {Id = 1, Title = "Test Song", GenreId = 2, IsPublic = true, TrackUrl = "randomsite.com/songurl.mp3", UserId = 1, UploadDate = DateTime.Now, AdditionalTags = "true, tags", ArtistName = "Me", Description = "True test music" },
+                new Track() {Id = 2, Title = "Test Song 2", GenreId = 1, IsPublic = false, TrackUrl = "aaa.com/mp3", UserId = 2, UploadDate = DateTime.Now }
             });
         }  
     }

@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Music";
 }
-@model List<Song>
+@model List<Track>
 
 <h1 class="text-white">Archived Track List</h1>
 <div class="d-flex justify-content-between">
@@ -26,33 +26,33 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var song in Model)
+        @foreach (var track in Model)
         {
             <tr class="align-middle">
-                <th scope="row">@song.Id</th>
-                <td>@song.Title</td>
-                <td>@(!string.IsNullOrEmpty(song.Description) ? song.Description : "-")</td>
-                <td>@song.SongUrl</td>
+                <th scope="row">@track.Id</th>
+                <td>@track.Title</td>
+                <td>@(!string.IsNullOrEmpty(track.Description) ? track.Description : "-")</td>
+                <td>@track.TrackUrl</td>
                 <td>
-                    @if (song.Genre?.Id == 1)
+                    @if (track.Genre?.Id == 1)
                     {
                         <span>-</span>
                     }
                     else
                     {
-                        <span>@song.Genre?.Name</span>
+                        <span>@track.Genre?.Name</span>
                     }
                 </td>
-                <td>@(!string.IsNullOrEmpty(song.AdditionalTags) ? song.AdditionalTags : "-")</td>
-                <td>@(!string.IsNullOrEmpty(song.ArtistName) ? song.ArtistName : "-")</td>
-                <td>@song.User?.Username</td>
-                <td>@song.IsPublic</td>
-                <td>@song.UploadDate</td>
+                <td>@(!string.IsNullOrEmpty(track.AdditionalTags) ? track.AdditionalTags : "-")</td>
+                <td>@(!string.IsNullOrEmpty(track.ArtistName) ? track.ArtistName : "-")</td>
+                <td>@track.User?.Username</td>
+                <td>@track.IsPublic</td>
+                <td>@track.UploadDate</td>
                 <td class="text-center">
-                    <a asp-controller="Music" asp-action="RestoreSong" asp-route-id="@song.Id" class="btn btn-outline-success">
+                    <a asp-controller="Music" asp-action="RestoreTrack" asp-route-id="@track.Id" class="btn btn-outline-success">
                         <i class="bi bi-arrow-counterclockwise"></i>
                     </a>
-                    <a asp-controller="Music" asp-action="DeleteSong" asp-route-id="@song.Id" class="btn btn-outline-danger">
+                    <a asp-controller="Music" asp-action="DeleteTrack" asp-route-id="@track.Id" class="btn btn-outline-danger">
                         <i class="bi bi-trash-fill"></i>
                     </a>
                 </td>

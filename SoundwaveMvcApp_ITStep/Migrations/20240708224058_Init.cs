@@ -45,15 +45,16 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Songs",
+                name: "Tracks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SongUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TrackUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsPublic = table.Column<bool>(type: "bit", nullable: false),
+                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
                     AdditionalTags = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ArtistName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -62,15 +63,15 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Songs", x => x.Id);
+                    table.PrimaryKey("PK_Tracks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Songs_Genres_GenreId",
+                        name: "FK_Tracks_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Songs_Users_UserId",
+                        name: "FK_Tracks_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -128,24 +129,28 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Songs",
-                columns: new[] { "Id", "AdditionalTags", "ArtistName", "Description", "GenreId", "IsPublic", "SongUrl", "Title", "UploadDate", "UserId" },
-                values: new object[] { 1, "true, tags", "Me", "True test music", 2, true, "randomsite.com/songurl.mp3", "Test Song", new DateTime(2024, 7, 9, 0, 15, 27, 370, DateTimeKind.Local).AddTicks(5323), 1 });
+                table: "Tracks",
+                columns: new[] { "Id", "AdditionalTags", "ArtistName", "Description", "GenreId", "IsArchived", "IsPublic", "Title", "TrackUrl", "UploadDate", "UserId" },
+                values: new object[,]
+                {
+                    { 1, "true, tags", "Me", "True test music", 2, false, true, "Test Song", "randomsite.com/songurl.mp3", new DateTime(2024, 7, 9, 1, 40, 58, 2, DateTimeKind.Local).AddTicks(3837), 1 },
+                    { 2, null, null, null, 1, false, false, "Test Song 2", "aaa.com/mp3", new DateTime(2024, 7, 9, 1, 40, 58, 2, DateTimeKind.Local).AddTicks(3881), 2 }
+                });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Songs_GenreId",
-                table: "Songs",
+                name: "IX_Tracks_GenreId",
+                table: "Tracks",
                 column: "GenreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Songs_Title",
-                table: "Songs",
+                name: "IX_Tracks_Title",
+                table: "Tracks",
                 column: "Title",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Songs_UserId",
-                table: "Songs",
+                name: "IX_Tracks_UserId",
+                table: "Tracks",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -165,7 +170,7 @@ namespace SoundwaveMvcApp_ITStep.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Songs");
+                name: "Tracks");
 
             migrationBuilder.DropTable(
                 name: "Genres");

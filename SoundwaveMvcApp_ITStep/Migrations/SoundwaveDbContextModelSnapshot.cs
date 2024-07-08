@@ -196,7 +196,7 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SoundwaveMvcApp_ITStep.Entities.Song", b =>
+            modelBuilder.Entity("SoundwaveMvcApp_ITStep.Entities.Track", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -222,13 +222,13 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                     b.Property<bool>("IsPublic")
                         .HasColumnType("bit");
 
-                    b.Property<string>("SongUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TrackUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UploadDate")
                         .HasColumnType("datetime2");
@@ -245,7 +245,7 @@ namespace SoundwaveMvcApp_ITStep.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Songs");
+                    b.ToTable("Tracks");
 
                     b.HasData(
                         new
@@ -257,9 +257,9 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                             GenreId = 2,
                             IsArchived = false,
                             IsPublic = true,
-                            SongUrl = "randomsite.com/songurl.mp3",
                             Title = "Test Song",
-                            UploadDate = new DateTime(2024, 7, 9, 0, 50, 35, 246, DateTimeKind.Local).AddTicks(400),
+                            TrackUrl = "randomsite.com/songurl.mp3",
+                            UploadDate = new DateTime(2024, 7, 9, 1, 40, 58, 2, DateTimeKind.Local).AddTicks(3837),
                             UserId = 1
                         },
                         new
@@ -268,9 +268,9 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                             GenreId = 1,
                             IsArchived = false,
                             IsPublic = false,
-                            SongUrl = "aaa.com/mp3",
                             Title = "Test Song 2",
-                            UploadDate = new DateTime(2024, 7, 9, 0, 50, 35, 246, DateTimeKind.Local).AddTicks(449),
+                            TrackUrl = "aaa.com/mp3",
+                            UploadDate = new DateTime(2024, 7, 9, 1, 40, 58, 2, DateTimeKind.Local).AddTicks(3881),
                             UserId = 2
                         });
                 });
@@ -367,16 +367,16 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SoundwaveMvcApp_ITStep.Entities.Song", b =>
+            modelBuilder.Entity("SoundwaveMvcApp_ITStep.Entities.Track", b =>
                 {
                     b.HasOne("SoundwaveMvcApp_ITStep.Entities.Genre", "Genre")
-                        .WithMany("Songs")
+                        .WithMany("Tracks")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SoundwaveMvcApp_ITStep.Entities.User", "User")
-                        .WithMany("Songs")
+                        .WithMany("Tracks")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -388,12 +388,12 @@ namespace SoundwaveMvcApp_ITStep.Migrations
 
             modelBuilder.Entity("SoundwaveMvcApp_ITStep.Entities.Genre", b =>
                 {
-                    b.Navigation("Songs");
+                    b.Navigation("Tracks");
                 });
 
             modelBuilder.Entity("SoundwaveMvcApp_ITStep.Entities.User", b =>
                 {
-                    b.Navigation("Songs");
+                    b.Navigation("Tracks");
                 });
 #pragma warning restore 612, 618
         }

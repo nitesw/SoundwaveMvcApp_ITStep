@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Music";
 }
-@model List<Song>
+@model List<Track>
 
 <h1 class="text-white">Track List</h1>
 <div class="d-flex justify-content-between">
@@ -26,29 +26,30 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var song in Model)
+        @foreach (var track in Model)
         {
             <tr class="align-middle">
-                <th scope="row">@song.Id</th>
-                <td>@song.Title</td>
-                <td>@(!string.IsNullOrEmpty(song.Description) ? song.Description : "-")</td>
-                <td>@song.SongUrl</td>
-                <td>@if(song.Genre?.Id == 1)
+                <th scope="row">@track.Id</th>
+                <td>@track.Title</td>
+                <td>@(!string.IsNullOrEmpty(track.Description) ? track.Description : "-")</td>
+                <td>@track.TrackUrl</td>
+                <td>
+                    @if (track.Genre?.Id == 1)
                     {
                         <span>-</span>
                     }
                     else
                     {
-                        <span>@song.Genre?.Name</span>
+                        <span>@track.Genre?.Name</span>
                     }
                 </td>
-                <td>@(!string.IsNullOrEmpty(song.AdditionalTags) ? song.AdditionalTags : "-")</td>
-                <td>@(!string.IsNullOrEmpty(song.ArtistName) ? song.ArtistName : "-")</td>
-                <td>@song.User?.Username</td>
-                <td>@song.IsPublic</td>
-                <td>@song.UploadDate</td>
+                <td>@(!string.IsNullOrEmpty(track.AdditionalTags) ? track.AdditionalTags : "-")</td>
+                <td>@(!string.IsNullOrEmpty(track.ArtistName) ? track.ArtistName : "-")</td>
+                <td>@track.User?.Username</td>
+                <td>@track.IsPublic</td>
+                <td>@track.UploadDate</td>
                 <td class="text-center">
-                    <a asp-controller="Music" asp-action="ArchiveSong" asp-route-id="@song.Id" class="btn btn-outline-light">
+                    <a asp-controller="Music" asp-action="ArchiveTrack" asp-route-id="@track.Id" class="btn btn-outline-light">
                         <i class="bi bi-archive-fill"></i>
                     </a>
                 </td>
@@ -64,6 +65,7 @@
         <span>Archived Tracks</span>
     </a>
     <a asp-controller="Music" asp-action="Create" class="btn btn-outline-success">
-        <span>Upload new track</span>
+        <i class="bi bi-plus-circle"></i>
+        <span>Upload New Track</span>
     </a>
 </div>

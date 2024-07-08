@@ -1,11 +1,11 @@
 ﻿namespace SoundwaveMvcApp_ITStep.Entities
 {
-    public class Song
+    public class Track
     {
         public int Id { get; set; }
         public string Title { get; set; }
         public string? Description { get; set; }
-        public string SongUrl { get; set; }
+        public string TrackUrl { get; set; }
         public bool IsPublic { get; set; }
         public bool IsArchived { get; set; }
         public string? AdditionalTags { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SoundwaveMvcApp_ITStep.Data;
+using SoundwaveMvcApp_ITStep.Entities;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {
@@ -10,7 +11,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 
         public IActionResult Index()
         {
-            var music = ctx.Songs
+            var music = ctx.Tracks
                 .Include(x => x.Genre)
                 .Include(x => x.User)
                 .Where(x => !x.IsArchived)
@@ -21,7 +22,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 
         public IActionResult Archive()
         {
-            var music = ctx.Songs
+            var music = ctx.Tracks
                 .Include(x => x.Genre)
                 .Include(x => x.User)
                 .Where(x => x.IsArchived)
@@ -29,33 +30,44 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 
             return View(music);
         }
-        public IActionResult ArchiveSong(int id)
+        public IActionResult ArchiveTrack(int id)
         {
-            var song = ctx.Songs.Find(id);
-            if (song == null) return NotFound();
-            song.IsArchived = true;
+            var track = ctx.Tracks.Find(id);
+            if (track == null) return NotFound();
+            track.IsArchived = true;
             ctx.SaveChanges();
 
             return RedirectToAction("Index");
         }
         
-        public IActionResult RestoreSong(int id)
+        public IActionResult RestoreTrack(int id)
         {
-            var song = ctx.Songs.Find(id);
-            if (song == null) return NotFound();
-            song.IsArchived = false;
+            var track = ctx.Tracks.Find(id);
+            if (track == null) return NotFound();
+            track.IsArchived = false;
             ctx.SaveChanges();
 
             return RedirectToAction("Archive");
         }
-        public IActionResult DeleteSong(int id)
+        public IActionResult DeleteTrack(int id)
         {
-            var song = ctx.Songs.Find(id);
-            if (song == null) return NotFound();
-            ctx.Songs.Remove(song);
+            var track = ctx.Tracks.Find(id);
+            if (track == null) return NotFound();
+            ctx.Tracks.Remove(track);
             ctx.SaveChanges();
 
             return RedirectToAction("Archive");
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Track model)
+        {
+            return RedirectToAction("Index");
         }
     }
 }

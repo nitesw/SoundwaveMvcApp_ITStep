@@ -13,6 +13,6 @@
         public int Follows { get; set; }
         public bool IsPro { get; set ;}*/
 
-        public ICollection<Song>? Songs { get; set; }
+        public ICollection<Track>? Tracks { get; set; }
     }
 }
