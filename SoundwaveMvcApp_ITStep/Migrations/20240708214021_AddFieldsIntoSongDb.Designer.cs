@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoundwaveMvcApp_ITStep.Data;
 
@@ -11,9 +12,11 @@ using SoundwaveMvcApp_ITStep.Data;
 namespace SoundwaveMvcApp_ITStep.Migrations
 {
     [DbContext(typeof(SoundwaveDbContext))]
-    partial class SoundwaveDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240708214021_AddFieldsIntoSongDb")]
+    partial class AddFieldsIntoSongDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,9 +219,6 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsArchived")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsPublic")
                         .HasColumnType("bit");
 
@@ -255,22 +255,20 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                             ArtistName = "Me",
                             Description = "True test music",
                             GenreId = 2,
-                            IsArchived = false,
                             IsPublic = true,
                             SongUrl = "randomsite.com/songurl.mp3",
                             Title = "Test Song",
-                            UploadDate = new DateTime(2024, 7, 9, 0, 50, 35, 246, DateTimeKind.Local).AddTicks(400),
+                            UploadDate = new DateTime(2024, 7, 9, 0, 40, 20, 612, DateTimeKind.Local).AddTicks(4089),
                             UserId = 1
                         },
                         new
                         {
                             Id = 2,
                             GenreId = 1,
-                            IsArchived = false,
                             IsPublic = false,
                             SongUrl = "aaa.com/mp3",
                             Title = "Test Song 2",
-                            UploadDate = new DateTime(2024, 7, 9, 0, 50, 35, 246, DateTimeKind.Local).AddTicks(449),
+                            UploadDate = new DateTime(2024, 7, 9, 0, 40, 20, 612, DateTimeKind.Local).AddTicks(4136),
                             UserId = 2
                         });
                 });

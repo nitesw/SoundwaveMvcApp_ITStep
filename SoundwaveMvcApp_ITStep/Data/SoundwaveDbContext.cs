@@ -69,7 +69,8 @@ namespace SoundwaveMvcApp_ITStep.Data
             modelBuilder.Entity<Song>().HasIndex(s => s.Title).IsUnique();
             modelBuilder.Entity<Song>().HasData(new List<Song>()
             {
-                new Song() {Id = 1, Title = "Test Song", GenreId = 2, IsPublic = true, SongUrl = "randomsite.com/songurl.mp3", UserId = 1, UploadDate = DateTime.Now, AdditionalTags = "true, tags", ArtistName = "Me", Description = "True test music" }
+                new Song() {Id = 1, Title = "Test Song", GenreId = 2, IsPublic = true, SongUrl = "randomsite.com/songurl.mp3", UserId = 1, UploadDate = DateTime.Now, AdditionalTags = "true, tags", ArtistName = "Me", Description = "True test music" },
+                new Song() {Id = 2, Title = "Test Song 2", GenreId = 1, IsPublic = false, SongUrl = "aaa.com/mp3", UserId = 2, UploadDate = DateTime.Now }
             });
         }  
     }

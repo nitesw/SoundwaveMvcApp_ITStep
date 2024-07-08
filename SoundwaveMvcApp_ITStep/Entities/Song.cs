@@ -7,6 +7,7 @@
         public string? Description { get; set; }
         public string SongUrl { get; set; }
         public bool IsPublic { get; set; }
+        public bool IsArchived { get; set; }
         public string? AdditionalTags { get; set; }
         public DateTime UploadDate { get; set; }
         public string? ArtistName { get; set; }
