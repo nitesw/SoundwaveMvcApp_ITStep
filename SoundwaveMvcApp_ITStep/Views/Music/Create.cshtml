@@ -8,15 +8,13 @@
 <form class="row g-3" method="post" asp-action="Create">
     <div class="col-12">
         <label asp-for=Title class="form-label text-white">Title <strong class="text-danger">*</strong></label>
-        <input asp-for=Title type="text" maxlength="200" class="form-control" placeholder="Enter the title..." required>  
+        <input asp-for=Title type="text" maxlength="200" class="form-control" placeholder="Enter the title..." required autocomplete="off">
     </div>
 
     <div class="col-12">
         <label asp-for="TrackUrl" class="form-label text-white">TrackUrl <strong class="text-danger">*</strong></label>
-        <input asp-for="TrackUrl" type="text" class="form-control" placeholder="Enter the track url..." required pattern="^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$">
-        <span asp-validation-for="TrackUrl" class="text-danger"></span>
+        <input asp-for="TrackUrl" type="text" class="form-control" placeholder="Enter the track url..." required autocomplete="off">
     </div>
-
     
     <div class="col-5">
         <label asp-for=GenreId class="form-label text-white">Genre</label>
@@ -24,11 +22,11 @@
     </div>
     <div class="col-5">
         <label asp-for=AdditionalTags class="form-label text-white">Additional Tags</label>
-        <input asp-for=AdditionalTags type="text" maxlength="1000" class="form-control" placeholder="Enter additonal tags...">
+        <input asp-for=AdditionalTags type="text" maxlength="1000" class="form-control" placeholder="Enter additonal tags..." autocomplete="off">
     </div>
     <div class="col-2">
         <label asp-for=ArtistName class="form-label text-white">Artist</label>
-        <input asp-for=ArtistName type="text" maxlength="100" class="form-control" placeholder="Enter the artist name...">
+        <input asp-for=ArtistName type="text" maxlength="100" class="form-control" placeholder="Enter the artist name..." autocomplete="off">
     </div>
     
     <div class="col-12 mb-3">

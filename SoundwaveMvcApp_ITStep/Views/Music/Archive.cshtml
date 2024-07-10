@@ -49,8 +49,11 @@
                 <td>@track.IsPublic</td>
                 <td class="text-center">@track.UploadDate.ToString("dd.MM.yyyy")</td>
                 <td class="text-center">
-                    <a asp-controller="Music" asp-action="ArchiveTrack" asp-route-id="@track.Id" class="btn btn-outline-light">
-                        <i class="bi bi-archive-fill"></i>
+                    <a asp-controller="Music" asp-action="RestoreTrack" asp-route-id="@track.Id" class="btn btn-outline-success">
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                    </a>
+                    <a asp-controller="Music" asp-action="DeleteTrack" asp-route-id="@track.Id" class="btn btn-outline-danger">
+                        <i class="bi bi-trash-fill"></i>
                     </a>
                 </td>
             </tr>
