@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoundwaveMvcApp_ITStep.Data;
 using SoundwaveMvcApp_ITStep.Entities;
+using System.Diagnostics;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {
@@ -63,7 +64,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Genres = new SelectList(ctx.Genres.ToList(), "Id", "Name");
+            LoadGenres();
 
             return View();
         }
@@ -74,6 +75,30 @@ namespace SoundwaveMvcApp_ITStep.Controllers
             ctx.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var track = ctx.Tracks.Find(id);
+            if (track == null) return NotFound();
+
+            LoadGenres();
+            ViewBag.CreateMode = false;
+            return View(track);
+        }
+        [HttpPost]
+        public IActionResult Edit(Track model)
+        {
+            ctx.Tracks.Update(model);
+            ctx.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        private void LoadGenres()
+        {
+            ViewBag.Genres = new SelectList(ctx.Genres.ToList(), "Id", "Name");
         }
     }
 }
