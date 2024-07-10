@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoundwaveMvcApp_ITStep.Data;
 using SoundwaveMvcApp_ITStep.Entities;
@@ -62,11 +63,16 @@ namespace SoundwaveMvcApp_ITStep.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Genres = new SelectList(ctx.Genres.ToList(), "Id", "Name");
+
             return View();
         }
         [HttpPost]
         public IActionResult Create(Track model)
         {
+            ctx.Tracks.Add(model);
+            ctx.SaveChanges();
+
             return RedirectToAction("Index");
         }
     }

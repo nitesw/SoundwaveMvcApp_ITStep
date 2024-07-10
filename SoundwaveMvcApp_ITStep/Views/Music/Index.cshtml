@@ -14,14 +14,14 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Title</th>
-            <th scope="col">Description</th>
+            @* <th scope="col">Description</th> *@
             <th scope="col">TrackUrl</th>
             <th scope="col">Genre</th>
             <th scope="col">Additional Tags</th>
             <th scope="col">Artist</th>
             <th scope="col">User</th>
             <th scope="col">Public</th>
-            <th scope="col">Upload Date</th>
+            <th scope="col" class="text-center">Upload Date</th>
             <th scope="col" class="text-center">Action</th>
         </tr>
     </thead>
@@ -31,7 +31,7 @@
             <tr class="align-middle">
                 <th scope="row">@track.Id</th>
                 <td>@track.Title</td>
-                <td>@(!string.IsNullOrEmpty(track.Description) ? track.Description : "-")</td>
+                @* <td>@(!string.IsNullOrEmpty(track.Description) ? track.Description : "-")</td> *@
                 <td>@track.TrackUrl</td>
                 <td>
                     @if (track.Genre?.Id == 1)
@@ -47,7 +47,7 @@
                 <td>@(!string.IsNullOrEmpty(track.ArtistName) ? track.ArtistName : "-")</td>
                 <td>@track.User?.Username</td>
                 <td>@track.IsPublic</td>
-                <td>@track.UploadDate</td>
+                <td class="text-center">@track.UploadDate.ToString("dd.MM.yyyy")</td>
                 <td class="text-center">
                     <a asp-controller="Music" asp-action="ArchiveTrack" asp-route-id="@track.Id" class="btn btn-outline-light">
                         <i class="bi bi-archive-fill"></i>

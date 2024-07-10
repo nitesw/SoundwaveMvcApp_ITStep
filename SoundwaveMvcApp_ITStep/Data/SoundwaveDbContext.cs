@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SoundwaveMvcApp_ITStep.Entities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SoundwaveMvcApp_ITStep.Data
 {
@@ -69,8 +70,8 @@ namespace SoundwaveMvcApp_ITStep.Data
             modelBuilder.Entity<Track>().HasIndex(s => s.Title).IsUnique();
             modelBuilder.Entity<Track>().HasData(new List<Track>()
             {
-                new Track() {Id = 1, Title = "Test Song", GenreId = 2, IsPublic = true, TrackUrl = "randomsite.com/songurl.mp3", UserId = 1, UploadDate = DateTime.Now, AdditionalTags = "true, tags", ArtistName = "Me", Description = "True test music" },
-                new Track() {Id = 2, Title = "Test Song 2", GenreId = 1, IsPublic = false, TrackUrl = "aaa.com/mp3", UserId = 2, UploadDate = DateTime.Now }
+                new Track() {Id = 1, Title = "Test Song", GenreId = 2, IsPublic = true, TrackUrl = "randomsite.com/songurl.mp3", UserId = 1, UploadDate = DateTime.Now.Date, AdditionalTags = "true, tags", ArtistName = "Me", Description = "True test music" },
+                new Track() {Id = 2, Title = "Test Song 2", GenreId = 1, IsPublic = false, TrackUrl = "aaa.com/mp3", UserId = 2, UploadDate = DateTime.Now.Date }
             });
         }  
     }
