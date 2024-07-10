@@ -65,8 +65,8 @@ namespace SoundwaveMvcApp_ITStep.Controllers
         public IActionResult Create()
         {
             LoadGenres();
-
-            return View();
+            ViewBag.UploadMode = true;
+            return View("Upsert");
         }
         [HttpPost]
         public IActionResult Create(Track model)
@@ -84,8 +84,8 @@ namespace SoundwaveMvcApp_ITStep.Controllers
             if (track == null) return NotFound();
 
             LoadGenres();
-            ViewBag.CreateMode = false;
-            return View(track);
+            ViewBag.UploadMode = false;
+            return View("Upsert", track);
         }
         [HttpPost]
         public IActionResult Edit(Track model)

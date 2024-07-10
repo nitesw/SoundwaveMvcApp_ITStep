@@ -1,11 +1,19 @@
 ﻿@{
-    ViewData["Title"] = "Upload Track";
+    var upload = ViewBag.UploadMode;
+    if (upload)
+    {
+        ViewData["Title"] = "Upload Track"; 
+    }
+    else
+    {
+        ViewData["Title"] = "Edit Track";
+    }
 }
 @model Track
 
-<h1 class="text-white mb-4">Upload New Track</h1>
+<h1 class="text-white mb-4">@(upload ? "Upload New" : "Edit") Track</h1>
 
-<form class="row g-3" method="post" asp-action="Edit">
+<form class="row g-3" method="post" asp-action="@(upload ? "Create" : "Edit")">
     <div class="col-12">
         <label asp-for=Title class="form-label text-white">Title <strong class="text-danger">*</strong></label>
         <input asp-for=Title type="text" maxlength="200" class="form-control" placeholder="Enter the title..." required autocomplete="off">
@@ -51,10 +59,10 @@
         <a asp-action="Index" class="btn btn-outline-secondary w-100">Cancel</a>
     </div>
     <div class="col-3">
-        <button type="submit" class="btn btn-outline-success w-100">Upload</button>
+        <button type="submit" class="btn btn-outline-success w-100">@(upload ? "Upload" : "Save Changes")</button>
     </div>
 
-    <input asp-for=UserId type="hidden" />
-    <input asp-for=IsArchived type="hidden" />
-    <input asp-for=UploadDate type="hidden" />
+    <input asp-for=UserId value="@(upload ? "1" : Model.UserId)" type="hidden" />
+    <input asp-for=IsArchived value="false" type="hidden" />
+    <input asp-for=UploadDate value="@(upload ? DateTime.Now.Date : Model.UploadDate.Date)" type="hidden" />
 </form>
