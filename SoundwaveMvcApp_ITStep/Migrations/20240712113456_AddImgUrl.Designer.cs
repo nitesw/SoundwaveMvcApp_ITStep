@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoundwaveMvcApp_ITStep.Data;
 
@@ -11,9 +12,11 @@ using SoundwaveMvcApp_ITStep.Data;
 namespace SoundwaveMvcApp_ITStep.Migrations
 {
     [DbContext(typeof(SoundwaveDbContext))]
-    partial class SoundwaveDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240712113456_AddImgUrl")]
+    partial class AddImgUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -271,7 +274,7 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                         {
                             Id = 2,
                             GenreId = 1,
-                            ImgUrl = "https://preview.redd.it/o94pn5h60lz61.png?width=1080&crop=smart&auto=webp&s=7464db335ee53167d2f6e2288d162711ed0a31d1",
+                            ImgUrl = "https://i.redd.it/lhg9d9b80lz61.png",
                             IsArchived = false,
                             IsPublic = false,
                             Title = "Test Song 2",

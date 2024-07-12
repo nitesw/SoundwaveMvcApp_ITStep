@@ -15,6 +15,10 @@ namespace SoundwaveMvcApp_ITStep.Entities
         [Url(ErrorMessage = "Please enter a valid URL.")]
         public string TrackUrl { get; set; }
 
+        [Required]
+        [Url(ErrorMessage = "Please enter a valid URL.")]
+        public string ImgUrl { get; set; }
+
         public bool IsPublic { get; set; }
         public bool IsArchived { get; set; }
         public string? AdditionalTags { get; set; }

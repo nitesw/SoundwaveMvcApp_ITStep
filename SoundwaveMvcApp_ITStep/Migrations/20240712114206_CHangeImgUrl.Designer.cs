@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoundwaveMvcApp_ITStep.Data;
 
@@ -11,9 +12,11 @@ using SoundwaveMvcApp_ITStep.Data;
 namespace SoundwaveMvcApp_ITStep.Migrations
 {
     [DbContext(typeof(SoundwaveDbContext))]
-    partial class SoundwaveDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240712114206_CHangeImgUrl")]
+    partial class CHangeImgUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

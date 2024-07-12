@@ -20,3 +20,10 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.track-img {
+    transition: .1s;
+}
+.track-img:hover {
+    transform: scale(2.3);
+}

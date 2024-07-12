@@ -13,6 +13,7 @@
     <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col" class="text-center">Img</th>
             <th scope="col">Title</th>
             @* <th scope="col">Description</th> *@
             <th scope="col">TrackUrl</th>
@@ -30,6 +31,7 @@
         {
             <tr class="align-middle">
                 <th scope="row">@track.Id</th>
+                <td class="text-center"><img height="32" src="@track.ImgUrl" alt="@track.Title" class="track-img" /></td>
                 <td>@track.Title</td>
                 @* <td>@(!string.IsNullOrEmpty(track.Description) ? track.Description : "-")</td> *@
                 <td>@track.TrackUrl</td>
