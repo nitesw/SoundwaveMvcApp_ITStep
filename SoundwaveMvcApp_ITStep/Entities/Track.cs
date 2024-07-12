@@ -5,20 +5,10 @@ namespace SoundwaveMvcApp_ITStep.Entities
     public class Track
     {
         public int Id { get; set; }
-
-        [Required]
         public string Title { get; set; }
-
         public string? Description { get; set; }
-
-        [Required]
-        [Url(ErrorMessage = "Please enter a valid URL.")]
         public string TrackUrl { get; set; }
-
-        [Required]
-        [Url(ErrorMessage = "Please enter a valid URL.")]
         public string ImgUrl { get; set; }
-
         public bool IsPublic { get; set; }
         public bool IsArchived { get; set; }
         public string? AdditionalTags { get; set; }

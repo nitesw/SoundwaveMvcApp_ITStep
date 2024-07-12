@@ -12,7 +12,7 @@ using SoundwaveMvcApp_ITStep.Data;
 namespace SoundwaveMvcApp_ITStep.Migrations
 {
     [DbContext(typeof(SoundwaveDbContext))]
-    [Migration("20240708224058_Init")]
+    [Migration("20240712171938_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace SoundwaveMvcApp_ITStep.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -219,6 +219,10 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ImgUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsArchived")
                         .HasColumnType("bit");
 
@@ -258,22 +262,24 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                             ArtistName = "Me",
                             Description = "True test music",
                             GenreId = 2,
+                            ImgUrl = "https://i.redd.it/lhg9d9b80lz61.png",
                             IsArchived = false,
                             IsPublic = true,
                             Title = "Test Song",
                             TrackUrl = "randomsite.com/songurl.mp3",
-                            UploadDate = new DateTime(2024, 7, 9, 1, 40, 58, 2, DateTimeKind.Local).AddTicks(3837),
+                            UploadDate = new DateTime(2024, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             UserId = 1
                         },
                         new
                         {
                             Id = 2,
                             GenreId = 1,
+                            ImgUrl = "https://preview.redd.it/o94pn5h60lz61.png?width=1080&crop=smart&auto=webp&s=7464db335ee53167d2f6e2288d162711ed0a31d1",
                             IsArchived = false,
                             IsPublic = false,
                             Title = "Test Song 2",
                             TrackUrl = "aaa.com/mp3",
-                            UploadDate = new DateTime(2024, 7, 9, 1, 40, 58, 2, DateTimeKind.Local).AddTicks(3881),
+                            UploadDate = new DateTime(2024, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             UserId = 2
                         });
                 });

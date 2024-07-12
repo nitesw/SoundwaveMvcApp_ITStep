@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Track
+@{
     var upload = ViewBag.UploadMode;
     if (upload)
     {
@@ -9,23 +10,25 @@
         ViewData["Title"] = "Edit Track";
     }
 }
-@model Track
 
 <h1 class="text-white mb-4">@(upload ? "Upload New" : "Edit") Track</h1>
 
 <form class="row g-3" method="post" asp-action="@(upload ? "Create" : "Edit")">
     <div class="col-12">
         <label asp-for=Title class="form-label text-white">Title <strong class="text-danger">*</strong></label>
-        <input asp-for=Title type="text" maxlength="200" class="form-control" placeholder="Enter the title..." required autocomplete="off">
+        <input asp-for=Title type="text" maxlength="100" class="form-control" placeholder="Enter the title..." autocomplete="off">
+        <span asp-validation-for="Title" class="small text-danger"></span>
     </div>
 
     <div class="col-6">
         <label asp-for="TrackUrl" class="form-label text-white">TrackUrl <strong class="text-danger">*</strong></label>
         <input asp-for="TrackUrl" type="text" class="form-control" placeholder="Enter the track url..." required autocomplete="off">
+        <span asp-validation-for="TrackUrl" class="small text-danger"></span>
     </div>
     <div class="col-6">
         <label asp-for="ImgUrl" class="form-label text-white">ImgUrl <strong class="text-danger">*</strong></label>
         <input asp-for="ImgUrl" type="text" class="form-control" placeholder="Enter the image url..." required autocomplete="off">
+        <span asp-validation-for="ImgUrl" class="small text-danger"></span>
     </div>
 
     <div class="col-5">
@@ -34,16 +37,16 @@
     </div>
     <div class="col-5">
         <label asp-for=AdditionalTags class="form-label text-white">Additional Tags</label>
-        <input asp-for=AdditionalTags type="text" maxlength="1000" class="form-control" placeholder="Enter additonal tags..." autocomplete="off">
+        <input asp-for=AdditionalTags type="text" maxlength="150" class="form-control" placeholder="Enter additonal tags..." autocomplete="off">
     </div>
     <div class="col-2">
         <label asp-for=ArtistName class="form-label text-white">Artist</label>
-        <input asp-for=ArtistName type="text" maxlength="100" class="form-control" placeholder="Enter the artist name..." autocomplete="off">
+        <input asp-for=ArtistName type="text" maxlength="50" class="form-control" placeholder="Enter the artist name..." autocomplete="off">
     </div>
 
     <div class="col-12 mb-3">
         <label asp-for=Description class="form-label text-white">Description</label>
-        <textarea asp-for=Description maxlength="10000" placeholder="Describe your track..." class="form-control" rows="3"></textarea>
+        <textarea asp-for=Description maxlength="1000" placeholder="Describe your track..." class="form-control" rows="3"></textarea>
     </div>
 
     <div class="col-12">
@@ -70,3 +73,7 @@
     <input asp-for=IsArchived value="false" type="hidden" />
     <input asp-for=UploadDate value="@(upload ? DateTime.Now.Date : Model.UploadDate.Date)" type="hidden" />
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

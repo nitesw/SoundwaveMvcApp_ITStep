@@ -53,6 +53,7 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                     Title = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TrackUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsPublic = table.Column<bool>(type: "bit", nullable: false),
                     IsArchived = table.Column<bool>(type: "bit", nullable: false),
                     AdditionalTags = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -130,11 +131,11 @@ namespace SoundwaveMvcApp_ITStep.Migrations
 
             migrationBuilder.InsertData(
                 table: "Tracks",
-                columns: new[] { "Id", "AdditionalTags", "ArtistName", "Description", "GenreId", "IsArchived", "IsPublic", "Title", "TrackUrl", "UploadDate", "UserId" },
+                columns: new[] { "Id", "AdditionalTags", "ArtistName", "Description", "GenreId", "ImgUrl", "IsArchived", "IsPublic", "Title", "TrackUrl", "UploadDate", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "true, tags", "Me", "True test music", 2, false, true, "Test Song", "randomsite.com/songurl.mp3", new DateTime(2024, 7, 9, 1, 40, 58, 2, DateTimeKind.Local).AddTicks(3837), 1 },
-                    { 2, null, null, null, 1, false, false, "Test Song 2", "aaa.com/mp3", new DateTime(2024, 7, 9, 1, 40, 58, 2, DateTimeKind.Local).AddTicks(3881), 2 }
+                    { 1, "true, tags", "Me", "True test music", 2, "https://i.redd.it/lhg9d9b80lz61.png", false, true, "Test Song", "randomsite.com/songurl.mp3", new DateTime(2024, 7, 12, 0, 0, 0, 0, DateTimeKind.Local), 1 },
+                    { 2, null, null, null, 1, "https://preview.redd.it/o94pn5h60lz61.png?width=1080&crop=smart&auto=webp&s=7464db335ee53167d2f6e2288d162711ed0a31d1", false, false, "Test Song 2", "aaa.com/mp3", new DateTime(2024, 7, 12, 0, 0, 0, 0, DateTimeKind.Local), 2 }
                 });
 
             migrationBuilder.CreateIndex(

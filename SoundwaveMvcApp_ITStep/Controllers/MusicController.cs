@@ -71,6 +71,13 @@ namespace SoundwaveMvcApp_ITStep.Controllers
         [HttpPost]
         public IActionResult Create(Track model)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.UploadMode = true;
+                LoadGenres();
+                return View("Upsert", model);
+            }
+
             ctx.Tracks.Add(model);
             ctx.SaveChanges();
 
@@ -90,6 +97,13 @@ namespace SoundwaveMvcApp_ITStep.Controllers
         [HttpPost]
         public IActionResult Edit(Track model)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.UploadMode = false;
+                LoadGenres();
+                return View("Upsert", model);
+            }
+
             ctx.Tracks.Update(model);
             ctx.SaveChanges();
 

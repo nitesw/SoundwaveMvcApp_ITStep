@@ -1,3 +1,7 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using SoundwaveMvcApp_ITStep.Validations;
+
 namespace SoundwaveMvcApp_ITStep
 {
     public class Program
@@ -8,6 +12,9 @@ namespace SoundwaveMvcApp_ITStep
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
             var app = builder.Build();
 
