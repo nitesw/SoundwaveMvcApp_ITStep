@@ -1,7 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
+@model List<Track>
 
 <div class="container">
-    <h1 class="text-center text-white mt-2 mb-4">Welcome to the Soundwave!</h1>
+    <h1 class="text-center text-white mt-4 mb-0">Welcome to the Soundwave!</h1>
+    <h4 class="text-center text-secondary mb-4">Here you can see some tracks as a recommendations!</h4>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mt-4 g-4">
+        @foreach (var item in Model)
+        {
+            <partial name="_HomepageTrackPartial" model="@item" />
+        }  
+    </div>  
 </div>

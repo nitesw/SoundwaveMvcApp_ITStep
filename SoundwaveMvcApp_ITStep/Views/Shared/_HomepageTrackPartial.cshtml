@@ -1,0 +1,11 @@
+﻿@model Track
+
+<div class="col">
+    <div class="homepage-track d-flex flex-column">
+        @* TODO: onclcik get to the track page *@
+        <img width="256" style="border-radius:3px" src="@Model.ImgUrl" alt="@Model.Title" draggable="false" class="mb-2" />
+        <h5 class="text-white mb-0">@Model.Title</h5>
+        @* TODO: onclcik get to the user page *@
+        <h6 class="text-secondary">@Model.User?.Username</h6>
+    </div>
+</div> 

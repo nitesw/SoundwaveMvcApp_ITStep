@@ -16,7 +16,12 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var tracks = ctx.Tracks
+                .Where(x => !x.IsArchived)
+                .Include(x => x.User)
+                .ToList();
+
+            return View(tracks);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
