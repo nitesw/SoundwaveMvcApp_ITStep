@@ -1,4 +1,4 @@
-﻿@model Track
+﻿@model TrackDto
 @{
     var upload = ViewBag.UploadMode;
     if (upload)
@@ -22,12 +22,12 @@
 
     <div class="col-6">
         <label asp-for="TrackUrl" class="form-label text-white">TrackUrl <strong class="text-danger">*</strong></label>
-        <input asp-for="TrackUrl" type="text" class="form-control" placeholder="Enter the track url..." required autocomplete="off">
+        <input asp-for="TrackUrl" type="url" class="form-control" placeholder="Enter the track url..." required autocomplete="off">
         <span asp-validation-for="TrackUrl" class="small text-danger"></span>
     </div>
     <div class="col-6">
         <label asp-for="ImgUrl" class="form-label text-white">ImgUrl <strong class="text-danger">*</strong></label>
-        <input asp-for="ImgUrl" type="text" class="form-control" placeholder="Enter the image url..." required autocomplete="off">
+        <input asp-for="ImgUrl" type="url" class="form-control" placeholder="Enter the image url..." required autocomplete="off">
         <span asp-validation-for="ImgUrl" class="small text-danger"></span>
     </div>
 

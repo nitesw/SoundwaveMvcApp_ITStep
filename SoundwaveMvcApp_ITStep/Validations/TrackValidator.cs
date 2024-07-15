@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
 using SoundwaveMvcApp_ITStep.Data;
+using SoundwaveMvcApp_ITStep.Dtos;
 using SoundwaveMvcApp_ITStep.Entities;
 
 namespace SoundwaveMvcApp_ITStep.Validations
 {
-    public class TrackValidator : AbstractValidator<Track>
+    public class TrackValidator : AbstractValidator<TrackDto>
     {
         public TrackValidator()
         {
@@ -30,7 +31,7 @@ namespace SoundwaveMvcApp_ITStep.Validations
                 .MaximumLength(1000);
         }
 
-        private bool UniqueTitle(Track track, string title)
+        private bool UniqueTitle(TrackDto track, string title)
         {
             SoundwaveDbContext ctx = new SoundwaveDbContext();
             var dbTitle = ctx.Tracks

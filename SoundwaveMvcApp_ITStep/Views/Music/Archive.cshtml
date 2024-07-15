@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Archive";
 }
-@model List<Track>
+@model List<TrackDto>
 
 <h1 class="text-white">Archived Track List</h1>
 <div class="d-flex justify-content-between">
@@ -36,18 +36,18 @@
                 @* <td>@(!string.IsNullOrEmpty(track.Description) ? track.Description : "-")</td> *@
                 <td>@track.TrackUrl</td>
                 <td>
-                    @if (track.Genre?.Id == 1)
+                    @if (track.GenreId == 1)
                     {
                         <span>-</span>
                     }
                     else
                     {
-                        <span>@track.Genre?.Name</span>
+                        <span>@track.GenreName</span>
                     }
                 </td>
                 <td>@(!string.IsNullOrEmpty(track.AdditionalTags) ? track.AdditionalTags : "-")</td>
                 <td>@(!string.IsNullOrEmpty(track.ArtistName) ? track.ArtistName : "-")</td>
-                <td>@track.User?.Username</td>
+                <td>@track.UserUsername</td>
                 <td>@track.IsPublic</td>
                 <td class="text-center">@track.UploadDate.ToString("dd.MM.yyyy")</td>
                 <td class="text-center">

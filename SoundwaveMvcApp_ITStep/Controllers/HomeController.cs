@@ -1,6 +1,8 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SoundwaveMvcApp_ITStep.Data;
+using SoundwaveMvcApp_ITStep.Dtos;
 using SoundwaveMvcApp_ITStep.Models;
 using System.Diagnostics;
 
@@ -9,9 +11,11 @@ namespace SoundwaveMvcApp_ITStep.Controllers
     public class HomeController : Controller
     {
         private SoundwaveDbContext ctx = new SoundwaveDbContext();
+        private readonly IMapper mapper;
 
-        public HomeController()
+        public HomeController(IMapper mapper)
         {
+            this.mapper = mapper;
         }
 
         public IActionResult Index()
@@ -21,7 +25,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
                 .Include(x => x.User)
                 .ToList();
 
-            return View(tracks);
+            return View(mapper.Map<List<TrackDto>>(tracks));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
