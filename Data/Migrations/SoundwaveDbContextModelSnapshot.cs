@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SoundwaveMvcApp_ITStep.Data;
+using Data.Data;
 
 #nullable disable
 
-namespace SoundwaveMvcApp_ITStep.Migrations
+namespace Data.Migrations
 {
     [DbContext(typeof(SoundwaveDbContext))]
-    [Migration("20240712171938_Init")]
-    partial class Init
+    partial class SoundwaveDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +22,7 @@ namespace SoundwaveMvcApp_ITStep.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("SoundwaveMvcApp_ITStep.Entities.Genre", b =>
+            modelBuilder.Entity("Data.Entities.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -199,7 +196,7 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SoundwaveMvcApp_ITStep.Entities.Track", b =>
+            modelBuilder.Entity("Data.Entities.Track", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -284,7 +281,7 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SoundwaveMvcApp_ITStep.Entities.User", b =>
+            modelBuilder.Entity("Data.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -376,15 +373,15 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SoundwaveMvcApp_ITStep.Entities.Track", b =>
+            modelBuilder.Entity("Data.Entities.Track", b =>
                 {
-                    b.HasOne("SoundwaveMvcApp_ITStep.Entities.Genre", "Genre")
+                    b.HasOne("Data.Entities.Genre", "Genre")
                         .WithMany("Tracks")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SoundwaveMvcApp_ITStep.Entities.User", "User")
+                    b.HasOne("Data.Entities.User", "User")
                         .WithMany("Tracks")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -395,12 +392,12 @@ namespace SoundwaveMvcApp_ITStep.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SoundwaveMvcApp_ITStep.Entities.Genre", b =>
+            modelBuilder.Entity("Data.Entities.Genre", b =>
                 {
                     b.Navigation("Tracks");
                 });
 
-            modelBuilder.Entity("SoundwaveMvcApp_ITStep.Entities.User", b =>
+            modelBuilder.Entity("Data.Entities.User", b =>
                 {
                     b.Navigation("Tracks");
                 });

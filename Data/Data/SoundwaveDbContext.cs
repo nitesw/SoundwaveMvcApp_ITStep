@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SoundwaveMvcApp_ITStep.Entities;
+using Data.Entities;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace SoundwaveMvcApp_ITStep.Data
+namespace Data.Data
 {
     public class SoundwaveDbContext : DbContext
     {

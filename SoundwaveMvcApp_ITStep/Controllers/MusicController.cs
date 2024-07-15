@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SoundwaveMvcApp_ITStep.Data;
-using SoundwaveMvcApp_ITStep.Dtos;
-using SoundwaveMvcApp_ITStep.Entities;
+using Data.Data;
+using Core.Dtos;
+using Data.Entities;
 using System.Diagnostics;
 
 namespace SoundwaveMvcApp_ITStep.Controllers

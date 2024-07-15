@@ -1,6 +1,6 @@
+using Core.MapperProfiles;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using SoundwaveMvcApp_ITStep.Validations;
 
 namespace SoundwaveMvcApp_ITStep
 {
@@ -17,7 +17,7 @@ namespace SoundwaveMvcApp_ITStep
             builder.Services.AddFluentValidationClientsideAdapters();
             builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddAutoMapper(typeof(AppProfile));
 
             var app = builder.Build();
 

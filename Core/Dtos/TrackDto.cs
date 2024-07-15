@@ -1,14 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SoundwaveMvcApp_ITStep.Entities
+﻿namespace Core.Dtos
 {
-    public class Track
+    public class TrackDto
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
+        public int? Id { get; set; }
+        public string? Title { get; set; }
         public string? Description { get; set; }
-        public string TrackUrl { get; set; }
-        public string ImgUrl { get; set; }
+        public string? TrackUrl { get; set; }
+        public string? ImgUrl { get; set; }
         public bool IsPublic { get; set; }
         public bool IsArchived { get; set; }
         public string? AdditionalTags { get; set; }
@@ -16,8 +14,8 @@ namespace SoundwaveMvcApp_ITStep.Entities
         public string? ArtistName { get; set; }
 
         public int GenreId { get; set; }
-        public Genre? Genre { get; set; }
+        public string? GenreName { get; set; }
         public int UserId { get; set; }
-        public User? User { get; set; }
+        public string? UserUsername { get; set; }
     }
 }

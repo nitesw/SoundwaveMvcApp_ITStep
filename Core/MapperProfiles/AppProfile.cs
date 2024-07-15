@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using SoundwaveMvcApp_ITStep.Dtos;
-using SoundwaveMvcApp_ITStep.Entities;
+using Core.Dtos;
+using Data.Entities;
 
-namespace SoundwaveMvcApp_ITStep.MapperProfiles
+namespace Core.MapperProfiles
 {
     public class AppProfile : Profile
     {

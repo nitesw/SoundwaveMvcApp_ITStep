@@ -1,4 +1,4 @@
-﻿namespace SoundwaveMvcApp_ITStep.Entities
+﻿namespace Data.Entities
 {
     public class Genre
     {

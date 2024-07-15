@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SoundwaveMvcApp_ITStep.Data;
+using Data.Data;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {

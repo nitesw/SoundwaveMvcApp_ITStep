@@ -1,8 +1,8 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SoundwaveMvcApp_ITStep.Data;
-using SoundwaveMvcApp_ITStep.Dtos;
+using Data.Data;
+using Core.Dtos;
 using SoundwaveMvcApp_ITStep.Models;
 using System.Diagnostics;
 

@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using SoundwaveMvcApp_ITStep.Data;
-using SoundwaveMvcApp_ITStep.Dtos;
-using SoundwaveMvcApp_ITStep.Entities;
+using Data.Data;
+using Core.Dtos;
+using Data.Entities;
 
-namespace SoundwaveMvcApp_ITStep.Validations
+namespace Core.Validations
 {
     public class TrackValidator : AbstractValidator<TrackDto>
     {
