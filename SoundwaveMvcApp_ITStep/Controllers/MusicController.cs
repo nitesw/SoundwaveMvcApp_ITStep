@@ -120,7 +120,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 
         private void LoadGenres()
         {
-            ViewBag.Genres = new SelectList(ctx.Genres.ToList(), "Id", "Name");
+            ViewBag.Genres = new SelectList(mapper.Map<List<GenreDto>>(ctx.Genres), "Id", "Name");
         }
     }
 }

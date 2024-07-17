@@ -64,7 +64,8 @@ namespace Data.Data
                 new Genre() { Id = 28, Name = "Trance" },
                 new Genre() { Id = 29, Name = "Trap" },
                 new Genre() { Id = 30, Name = "Triphop" },
-                new Genre() { Id = 31, Name = "World" }
+                new Genre() { Id = 31, Name = "World" },
+                new Genre() { Id = 32, Name = "Other" }
             });
 
             modelBuilder.Entity<Track>().HasIndex(s => s.Title).IsUnique();

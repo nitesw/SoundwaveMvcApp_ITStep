@@ -9,6 +9,7 @@ namespace Core.MapperProfiles
         public AppProfile()
         {
             CreateMap<TrackDto, Track>().ReverseMap();
+            CreateMap<GenreDto, Genre>().ReverseMap();
         }
     }
 }
