@@ -1,4 +1,6 @@
 ﻿@{
+    var likedTracks = ViewBag.LikedTracks;
+
     ViewData["Title"] = "Home";
 }
 @model List<TrackDto>
@@ -10,7 +12,7 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mt-4 g-4">
         @foreach (var item in Model)
         {
-            <partial name="_HomepageTrackPartial" model="@item" />
+            <partial name="_HomepageTrackPartial" model="@item" LikedTracks="likedTracks" />
         }  
     </div>  
 </div>

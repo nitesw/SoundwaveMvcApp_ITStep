@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject LikesService likesService;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,6 +31,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Likes" asp-action="Index">Likes (@likesService.GetCount())</a>
                         </li>
                     </ul>
                 </div>

@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Likes";
+}
+@model List<TrackDto>
+
+<h1 class="text-white text-center">Liked tracks</h1>
+@if (Model.Any())
+{
+    @foreach (var track in Model)
+    {
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="text-white">@track.Title</h1>
+            <a asp-action="RemoveLike" asp-route-id="@track.Id" id="removeLikeBtn" class="btn btn-light">
+                <i class="bi bi-heart"></i>
+            </a>
+        </div> 
+    }
+}
+else
+{
+    <div class="text-secondary text-center">
+        <p class="mb-0">It looks like you don't have any tracks you liked yet.</p>
+        <p>Explore the home page and find tracks you like!</p>
+    </div>
+}

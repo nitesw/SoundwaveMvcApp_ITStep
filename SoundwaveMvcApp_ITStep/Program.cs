@@ -1,6 +1,9 @@
 using Core.MapperProfiles;
+using Data.Data;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
+using SoundwaveMvcApp_ITStep.Services;
 
 namespace SoundwaveMvcApp_ITStep
 {
@@ -10,14 +13,35 @@ namespace SoundwaveMvcApp_ITStep
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            string? connectionString = builder.Configuration.GetConnectionString("LocalDb");
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<SoundwaveDbContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            });
 
             builder.Services.AddFluentValidationAutoValidation();
             builder.Services.AddFluentValidationClientsideAdapters();
             builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddAutoMapper(typeof(AppProfile));
+
+            builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddDistributedMemoryCache();
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromDays(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            builder.Services.AddScoped<LikesService>();
 
             var app = builder.Build();
 
@@ -35,6 +59,8 @@ namespace SoundwaveMvcApp_ITStep
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",

@@ -10,12 +10,14 @@ namespace Data.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Track> Tracks { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public SoundwaveDbContext() { }
+        public SoundwaveDbContext(DbContextOptions options) : base(options) { }
+        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
 
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SoundwaveMVC_DB;Integrated Security=True;");
-        }
+        }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

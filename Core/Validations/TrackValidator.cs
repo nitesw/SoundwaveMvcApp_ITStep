@@ -7,8 +7,11 @@ namespace Core.Validations
 {
     public class TrackValidator : AbstractValidator<TrackDto>
     {
-        public TrackValidator()
+        private readonly SoundwaveDbContext ctx;
+        public TrackValidator(SoundwaveDbContext ctx)
         {
+            this.ctx = ctx;
+
             RuleFor(x => x.Title)
                 .NotNull()
                 .NotEmpty()
@@ -33,7 +36,6 @@ namespace Core.Validations
 
         private bool UniqueTitle(TrackDto track, string title)
         {
-            SoundwaveDbContext ctx = new SoundwaveDbContext();
             var dbTitle = ctx.Tracks
                 .Where(x => x.Title == title)
                 .SingleOrDefault();

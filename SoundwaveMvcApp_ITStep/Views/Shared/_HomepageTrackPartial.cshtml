@@ -1,11 +1,40 @@
-﻿@model TrackDto
+﻿@{
+    List<TrackDto> likedTracks = ViewBag.LikedTracks;
+}
+@model TrackDto
 
 <div class="col">
-    <div class="homepage-track d-flex flex-column">
+    <div class="homepage-track">
         @* TODO: onclcik get to the track page *@
-        <img width="256" style="border-radius:3px" src="@Model.ImgUrl" alt="@Model.Title" draggable="false" class="mb-2" />
-        <h5 class="text-white mb-0">@Model.Title</h5>
-        @* TODO: onclcik get to the user page *@
-        <h6 class="text-secondary">@Model.UserUsername</h6>
+        <img style="border-radius:3px" src="@Model.ImgUrl" alt="@Model.Title" draggable="false" class="mb-2 w-100" />
+        <div class="d-flex justify-content-between">
+            <div >
+                <h5 class="text-white mb-0">@Model.Title</h5>
+                @* TODO: onclcik get to the user page *@
+                <h6 class="text-secondary">@Model.UserUsername</h6>
+            </div>
+            @if (likedTracks.Count != 0)
+            {
+                var isLiked = likedTracks.FirstOrDefault(x => x.Id == Model.Id);
+                @if (isLiked == null)
+                {
+                    <a asp-controller="Likes" asp-action="AddLike" asp-route-id="@Model.Id" class="btn btn-outline-light h-75">
+                        <i class="bi bi-heart"></i>
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="Likes" asp-action="AddLike" asp-route-id="@Model.Id" class="btn btn-light h-75">
+                        <i class="bi bi-heart"></i>
+                    </a>
+                }
+            }
+            else
+            {
+                <a asp-controller="Likes" asp-action="AddLike" asp-route-id="@Model.Id" class="btn btn-outline-light h-75">
+                    <i class="bi bi-heart"></i>
+                </a>
+            }
+        </div> 
     </div>
-</div> 
+</div>

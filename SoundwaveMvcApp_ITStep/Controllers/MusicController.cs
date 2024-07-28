@@ -11,12 +11,13 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 {
     public class MusicController : Controller
     {
-        private SoundwaveDbContext ctx = new SoundwaveDbContext();
         private readonly IMapper mapper;
+        private SoundwaveDbContext ctx;
 
-        public MusicController(IMapper mapper)
+        public MusicController(IMapper mapper, SoundwaveDbContext ctx)
         {
             this.mapper = mapper;
+            this.ctx = ctx;
         }
 
         public IActionResult Index()
