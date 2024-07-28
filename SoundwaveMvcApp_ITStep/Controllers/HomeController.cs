@@ -6,32 +6,25 @@ using Core.Dtos;
 using SoundwaveMvcApp_ITStep.Models;
 using System.Diagnostics;
 using SoundwaveMvcApp_ITStep.Extensions;
+using SoundwaveMvcApp_ITStep.Services;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IMapper mapper;
-        private SoundwaveDbContext ctx;
+        private readonly HomeService homeService;
 
-        public HomeController(IMapper mapper, SoundwaveDbContext ctx)
+        public HomeController(HomeService homeService)
         {
-            this.mapper = mapper;
-            this.ctx = ctx;
+            this.homeService = homeService;
         }
 
         public IActionResult Index()
         {
-            var ids = HttpContext.Session.Get<List<int>>("liked_items") ?? new();
-            var likedTracks = ctx.Tracks.Include(x => x.Genre).Where(x => ids.Contains(x.Id)).ToList();
-            ViewBag.LikedTracks = mapper.Map<List<TrackDto>>(likedTracks);
+            var homePageData = homeService.GetHomePageData();
+            ViewBag.LikedTracks = homePageData.LikedTracks;
 
-            var tracks = ctx.Tracks
-                .Where(x => !x.IsArchived)
-                .Include(x => x.User)
-                .ToList();
-
-            return View(mapper.Map<List<TrackDto>>(tracks));
+            return View(homePageData.Tracks);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

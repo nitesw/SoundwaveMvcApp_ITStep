@@ -4,45 +4,36 @@ using Data.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SoundwaveMvcApp_ITStep.Extensions;
+using SoundwaveMvcApp_ITStep.Services;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {
     public class LikesController : Controller
     {
-        private readonly IMapper mapper;
-        private SoundwaveDbContext ctx;
+        private readonly LikesService likesService;
 
-        public LikesController(IMapper mapper, SoundwaveDbContext ctx)
+        public LikesController(LikesService likesService)
         {
-            this.mapper = mapper;
-            this.ctx = ctx;
+            this.likesService = likesService;
         }
 
         public IActionResult Index()
         {
-            var ids = HttpContext.Session.Get<List<int>>("liked_items") ?? new();
-            var tracks = ctx.Tracks.Include(x => x.Genre).Where(x => ids.Contains(x.Id)).ToList();
-
-            return View(mapper.Map<List<TrackDto>>(tracks));
+            return View(likesService.GetLikes());
         }
         public IActionResult AddLike(int id)
         {
-            var ids = HttpContext.Session.Get<List<int>>("liked_items");
-            if (ids == null) ids = new();
-            if (ids.Contains(id)) return RedirectToAction("RemoveLike", new { id });
+            var result = likesService.AddItem(id);
+            if (!result)
+            {
+                return RedirectToAction("RemoveLike", new { id });
+            }
 
-            ids.Add(id);
-            HttpContext.Session.Set("liked_items", ids);
-
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult RemoveLike(int id)
         {
-            var ids = HttpContext.Session.Get<List<int>>("liked_items");
-            if (ids == null || !ids.Contains(id)) return NotFound();
-
-            ids.Remove(id);
-            HttpContext.Session.Set("liked_items", ids);
+            likesService.RemoveItem(id);
 
             return RedirectToAction("Index");
         }

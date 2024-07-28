@@ -10,6 +10,7 @@ namespace Core.MapperProfiles
         {
             CreateMap<TrackDto, Track>().ReverseMap();
             CreateMap<GenreDto, Genre>().ReverseMap();
+            CreateMap<UserDto, User>().ReverseMap();
         }
     }
 }

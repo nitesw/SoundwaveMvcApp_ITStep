@@ -1,25 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Data.Data;
 using AutoMapper;
+using SoundwaveMvcApp_ITStep.Services;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly IMapper mapper;
-        private SoundwaveDbContext ctx;
+        private UsersService usersService;
 
-        public UsersController(IMapper mapper, SoundwaveDbContext ctx)
+        public UsersController(UsersService usersService)
         {
-            this.mapper = mapper;
-            this.ctx = ctx;
+            this.usersService = usersService;
         }
 
         public IActionResult Index()
         {
-            var users = ctx.Users.ToList();
-
-            return View(users);
+            return View(usersService.GetUsers());
         }
     }
 }

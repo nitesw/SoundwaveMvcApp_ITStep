@@ -36,7 +36,7 @@ namespace Data.Data
 
             modelBuilder.Entity<Genre>().HasData(new List<Genre>()
             {
-               new Genre() { Id = 1, Name = "None" },
+                new Genre() { Id = 1, Name = "None" },
                 new Genre() { Id = 2, Name = "Alternative Rock" },
                 new Genre() { Id = 3, Name = "Ambient" },
                 new Genre() { Id = 4, Name = "Classical" },

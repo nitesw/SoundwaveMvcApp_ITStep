@@ -6,66 +6,44 @@ using Data.Data;
 using Core.Dtos;
 using Data.Entities;
 using System.Diagnostics;
+using SoundwaveMvcApp_ITStep.Services;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {
     public class MusicController : Controller
     {
-        private readonly IMapper mapper;
-        private SoundwaveDbContext ctx;
+        private readonly MusicService musicService;
 
-        public MusicController(IMapper mapper, SoundwaveDbContext ctx)
+        public MusicController(MusicService musicService)
         {
-            this.mapper = mapper;
-            this.ctx = ctx;
+            this.musicService = musicService;
         }
 
         public IActionResult Index()
         {
-            var music = ctx.Tracks
-                .Include(x => x.Genre)
-                .Include(x => x.User)
-                .Where(x => !x.IsArchived)
-                .ToList();
-
-            return View(mapper.Map<List<TrackDto>>(music));
+            return View(musicService.GetTracks());
         }
 
         public IActionResult Archive()
         {
-            var music = ctx.Tracks
-                .Include(x => x.Genre)
-                .Include(x => x.User)
-                .Where(x => x.IsArchived)
-                .ToList();
-
-            return View(mapper.Map<List<TrackDto>>(music));
+            return View(musicService.GetArchivedTracks());
         }
         public IActionResult ArchiveTrack(int id)
         {
-            var track = ctx.Tracks.Find(id);
-            if (track == null) return NotFound();
-            track.IsArchived = true;
-            ctx.SaveChanges();
+            musicService.ArchiveItem(id);
 
             return RedirectToAction("Index");
         }
         
         public IActionResult RestoreTrack(int id)
         {
-            var track = ctx.Tracks.Find(id);
-            if (track == null) return NotFound();
-            track.IsArchived = false;
-            ctx.SaveChanges();
+            musicService.RestoreItem(id);
 
             return RedirectToAction("Archive");
         }
         public IActionResult DeleteTrack(int id)
         {
-            var track = ctx.Tracks.Find(id);
-            if (track == null) return NotFound();
-            ctx.Tracks.Remove(track);
-            ctx.SaveChanges();
+            musicService.DeleteItem(id);
 
             return RedirectToAction("Archive");
         }
@@ -87,8 +65,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
                 return View("Upsert", model);
             }
 
-            ctx.Tracks.Add(mapper.Map<Track>(model));
-            ctx.SaveChanges();
+            musicService.CreateItem(model);
 
             return RedirectToAction("Index");
         }
@@ -96,12 +73,9 @@ namespace SoundwaveMvcApp_ITStep.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var track = ctx.Tracks.Find(id);
-            if (track == null) return NotFound();
-
             LoadGenres();
             ViewBag.UploadMode = false;
-            return View("Upsert", mapper.Map<TrackDto>(track));
+            return View("Upsert", musicService.EditItem(id));
         }
         [HttpPost]
         public IActionResult Edit(TrackDto model)
@@ -113,15 +87,14 @@ namespace SoundwaveMvcApp_ITStep.Controllers
                 return View("Upsert", model);
             }
 
-            ctx.Tracks.Update(mapper.Map<Track>(model));
-            ctx.SaveChanges();
+            musicService.EditItem(model);
 
             return RedirectToAction("Index");
         }
 
         private void LoadGenres()
         {
-            ViewBag.Genres = new SelectList(mapper.Map<List<GenreDto>>(ctx.Genres), "Id", "Name");
+            ViewBag.Genres = new SelectList(musicService.LoadGenres(), "Id", "Name");
         }
     }
 }
