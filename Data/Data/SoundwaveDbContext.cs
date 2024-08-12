@@ -1,29 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Data.Entities;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Data.Data
 {
-    public class SoundwaveDbContext : DbContext
+    public class SoundwaveDbContext : IdentityDbContext<User>
     {
-        public DbSet<User> Users { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Track> Tracks { get; set; }
 
         public SoundwaveDbContext() { }
         public SoundwaveDbContext(DbContextOptions options) : base(options) { }
-        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SoundwaveMVC_DB;Integrated Security=True;");
-        }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
+            /*modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
             modelBuilder.Entity<User>().HasData(new List<User>()
             {
@@ -32,7 +26,7 @@ namespace Data.Data
                 new User() { Id = 3, Username = "uzibook", Email = "uzibook@mail.com", Password = "passsword1234", Likes = 12, Playlists = 2, IsAdmin = false},
                 new User() { Id = 4, Username = "zxcnewr", Email = "zxcnewr@mail.com", Password = "pass1234", Likes = 0, Playlists = 0, IsAdmin = false},
                 new User() { Id = 5, Username = "Moomaszh", Email = "moomaszh@mail.com", Password = "pass0000", Likes = 5, Playlists = 0, IsAdmin = false},
-            });
+            });*/
 
             modelBuilder.Entity<Genre>().HasData(new List<Genre>()
             {
@@ -73,8 +67,8 @@ namespace Data.Data
             modelBuilder.Entity<Track>().HasIndex(s => s.Title).IsUnique();
             modelBuilder.Entity<Track>().HasData(new List<Track>()
             {
-                new Track() {Id = 1, Title = "Test Song", GenreId = 2, IsPublic = true, TrackUrl = "randomsite.com/songurl.mp3", ImgUrl="https://i.redd.it/lhg9d9b80lz61.png", UserId = 1, UploadDate = DateTime.Now.Date, AdditionalTags = "true, tags", ArtistName = "Me", Description = "True test music" },
-                new Track() {Id = 2, Title = "Test Song 2", GenreId = 1, IsPublic = false, TrackUrl = "aaa.com/mp3", ImgUrl="https://preview.redd.it/o94pn5h60lz61.png?width=1080&crop=smart&auto=webp&s=7464db335ee53167d2f6e2288d162711ed0a31d1", UserId = 2, UploadDate = DateTime.Now.Date }
+                new Track() {Id = 1, Title = "Test Song", GenreId = 2, IsPublic = true, TrackUrl = "randomsite.com/songurl.mp3", ImgUrl="https://i.redd.it/lhg9d9b80lz61.png",  UploadDate = DateTime.Now.Date, AdditionalTags = "true, tags", ArtistName = "Me", Description = "True test music" },
+                new Track() {Id = 2, Title = "Test Song 2", GenreId = 1, IsPublic = false, TrackUrl = "aaa.com/mp3", ImgUrl="https://preview.redd.it/o94pn5h60lz61.png?width=1080&crop=smart&auto=webp&s=7464db335ee53167d2f6e2288d162711ed0a31d1",  UploadDate = DateTime.Now.Date }
             });
         }  
     }

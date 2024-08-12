@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Users";
 }
-@model List<UserDto>
+@model List<User>
 
 <table class="table table-dark">
     <thead>
@@ -22,11 +22,11 @@
         {
             <tr>
                 <th scope="row">@user.Id</th>
-                <td>@user.Username</td>
+                @* <td>@user.Username</td>
                 <td>@user.Email</td>
                 <td>@user.Password</td>
                 <td>@user.Likes</td>
-                <td>@user.Playlists</td>
+                <td>@user.Playlists</td> *@
             </tr>
         } 
     </tbody>

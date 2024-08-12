@@ -4,6 +4,8 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using SoundwaveMvcApp_ITStep.Services;
+using Microsoft.AspNetCore.Identity;
+using Data.Entities;
 
 namespace SoundwaveMvcApp_ITStep
 {
@@ -23,6 +25,8 @@ namespace SoundwaveMvcApp_ITStep
                 options.UseSqlServer(connectionString);
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
+
+            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<SoundwaveDbContext>();
 
             builder.Services.AddFluentValidationAutoValidation();
             builder.Services.AddFluentValidationClientsideAdapters();
@@ -65,6 +69,7 @@ namespace SoundwaveMvcApp_ITStep
 
             app.UseSession();
 
+            app.MapRazorPages();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
