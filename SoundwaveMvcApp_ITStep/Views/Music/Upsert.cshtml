@@ -1,6 +1,7 @@
 ﻿@model TrackDto
 @{
     var upload = ViewBag.UploadMode;
+    var userId = ViewBag.UserId;
     if (upload)
     {
         ViewData["Title"] = "Upload Track"; 
@@ -69,7 +70,7 @@
         <button type="submit" class="btn btn-outline-success w-100">@(upload ? "Upload" : "Save Changes")</button>
     </div>
 
-    <input asp-for=UserId value="@(upload ? "1" : Model.UserId)" type="hidden" />
+    <input asp-for=UserId value="@(upload ? userId : Model.UserId)" type="hidden" />
     <input asp-for=IsArchived value="false" type="hidden" />
     <input asp-for=UploadDate value="@(upload ? DateTime.Now.Date : Model.UploadDate.Date)" type="hidden" />
 </form>

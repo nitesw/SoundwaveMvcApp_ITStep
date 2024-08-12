@@ -249,8 +249,8 @@ namespace Data.Migrations
                 columns: new[] { "Id", "AdditionalTags", "ArtistName", "Description", "GenreId", "ImgUrl", "IsArchived", "IsPublic", "Title", "TrackUrl", "UploadDate", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "true, tags", "Me", "True test music", 2, "https://i.redd.it/lhg9d9b80lz61.png", false, true, "Test Song", "randomsite.com/songurl.mp3", new DateTime(2024, 8, 12, 0, 0, 0, 0, DateTimeKind.Local), null },
-                    { 2, null, null, null, 1, "https://preview.redd.it/o94pn5h60lz61.png?width=1080&crop=smart&auto=webp&s=7464db335ee53167d2f6e2288d162711ed0a31d1", false, false, "Test Song 2", "aaa.com/mp3", new DateTime(2024, 8, 12, 0, 0, 0, 0, DateTimeKind.Local), null }
+                    { 1, "true, tags", "Me", "True test music", 2, "https://i.redd.it/lhg9d9b80lz61.png", false, true, "Test Song", "randomsite.com/songurl.mp3", new DateTime(2024, 8, 13, 0, 0, 0, 0, DateTimeKind.Local), null },
+                    { 2, null, null, null, 1, "https://preview.redd.it/o94pn5h60lz61.png?width=1080&crop=smart&auto=webp&s=7464db335ee53167d2f6e2288d162711ed0a31d1", false, false, "Test Song 2", "aaa.com/mp3", new DateTime(2024, 8, 13, 0, 0, 0, 0, DateTimeKind.Local), null }
                 });
 
             migrationBuilder.CreateIndex(

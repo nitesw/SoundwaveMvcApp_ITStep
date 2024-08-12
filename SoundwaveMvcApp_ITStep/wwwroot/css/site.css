@@ -35,3 +35,10 @@ body {
 .track-title:hover {
     color: #adb5bd;
 }
+
+.login-text-url {
+    color: #adb5bd;
+}
+.login-text-url:hover {
+    color: #6c757d;
+}

@@ -269,7 +269,7 @@ namespace Data.Migrations
                             IsPublic = true,
                             Title = "Test Song",
                             TrackUrl = "randomsite.com/songurl.mp3",
-                            UploadDate = new DateTime(2024, 8, 12, 0, 0, 0, 0, DateTimeKind.Local)
+                            UploadDate = new DateTime(2024, 8, 13, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
@@ -280,7 +280,7 @@ namespace Data.Migrations
                             IsPublic = false,
                             Title = "Test Song 2",
                             TrackUrl = "aaa.com/mp3",
-                            UploadDate = new DateTime(2024, 8, 12, 0, 0, 0, 0, DateTimeKind.Local)
+                            UploadDate = new DateTime(2024, 8, 13, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 

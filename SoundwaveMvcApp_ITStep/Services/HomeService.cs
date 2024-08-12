@@ -23,7 +23,7 @@ namespace SoundwaveMvcApp_ITStep.Services
         public HomePageDataDto GetHomePageData()
         {
             var ids = httpContext.Session.Get<List<int>>("liked_items") ?? new();
-            var likedTracks = ctx.Tracks.Include(x => x.Genre).Where(x => ids.Contains(x.Id)).ToList();
+            var likedTracks = ctx.Tracks.Include(x => x.Genre).Include(x => x.User).Where(x => ids.Contains(x.Id)).ToList();
             var mappedLikedTracks = mapper.Map<List<TrackDto>>(likedTracks);
 
             var tracks = ctx.Tracks

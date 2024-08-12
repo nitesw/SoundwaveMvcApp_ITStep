@@ -7,6 +7,7 @@ using Core.Dtos;
 using Data.Entities;
 using System.Diagnostics;
 using SoundwaveMvcApp_ITStep.Services;
+using System.Security.Claims;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {
@@ -61,6 +62,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
         {
             LoadGenres();
             ViewBag.UploadMode = true;
+            ViewBag.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return View("Upsert");
         }
         [HttpPost]
@@ -69,6 +71,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.UploadMode = true;
+                ViewBag.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 LoadGenres();
                 return View("Upsert", model);
             }
