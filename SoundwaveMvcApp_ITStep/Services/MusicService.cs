@@ -44,6 +44,7 @@ namespace SoundwaveMvcApp_ITStep.Services
         {
             var track = ctx.Tracks.Find(id);
             if (track == null) return;
+            ctx.Entry(track).State = EntityState.Modified;
             track.IsArchived = true;
             ctx.SaveChanges();
         }
@@ -52,6 +53,7 @@ namespace SoundwaveMvcApp_ITStep.Services
         {
             var track = ctx.Tracks.Find(id);
             if (track == null) return;
+            ctx.Entry(track).State = EntityState.Modified;
             track.IsArchived = false;
             ctx.SaveChanges();
         }

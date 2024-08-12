@@ -34,7 +34,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
         public IActionResult RestoreTrack(int id)
         {
             musicService.RestoreItem(id);
@@ -66,7 +66,6 @@ namespace SoundwaveMvcApp_ITStep.Controllers
             }
 
             musicService.CreateItem(model);
-
             return RedirectToAction("Index");
         }
 
