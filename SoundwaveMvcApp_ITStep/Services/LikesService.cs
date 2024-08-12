@@ -31,19 +31,17 @@ namespace SoundwaveMvcApp_ITStep.Services
         public List<TrackDto> GetLikes()
         {
             var ids = httpContext.Session.Get<List<int>>("liked_items") ?? new();
-            var tracks = ctx.Tracks.Include(x => x.Genre).Where(x => ids.Contains(x.Id)).ToList();
+            var tracks = ctx.Tracks.Include(x => x.Genre).Include(x => x.User).Where(x => ids.Contains(x.Id)).ToList();
 
             return mapper.Map<List<TrackDto>>(tracks);
         }
-        public bool AddItem(int id)
+        public void AddItem(int id)
         {
             var ids = httpContext.Session.Get<List<int>>("liked_items");
             if (ids == null) ids = new();
-            if (ids.Contains(id)) return false;
 
             ids.Add(id);
             httpContext.Session.Set("liked_items", ids);
-            return true;
         }
         public void RemoveItem(int id)
         {

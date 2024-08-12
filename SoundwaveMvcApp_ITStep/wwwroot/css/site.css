@@ -27,3 +27,11 @@ body {
 .track-img:hover {
     transform: scale(2.3);
 }
+
+.track-title{
+    text-decoration: none;
+    color: white;
+}
+.track-title:hover {
+    color: #adb5bd;
+}

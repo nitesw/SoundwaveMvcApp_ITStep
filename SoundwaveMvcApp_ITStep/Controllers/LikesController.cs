@@ -21,21 +21,17 @@ namespace SoundwaveMvcApp_ITStep.Controllers
         {
             return View(likesService.GetLikes());
         }
-        public IActionResult AddLike(int id)
+        public IActionResult AddLike(int id, string? returnUrl)
         {
-            var result = likesService.AddItem(id);
-            if (!result)
-            {
-                return RedirectToAction("RemoveLike", new { id });
-            }
+            likesService.AddItem(id);
 
-            return RedirectToAction("Index", "Home");
+            return Redirect(returnUrl ?? "/");
         }
-        public IActionResult RemoveLike(int id)
+        public IActionResult RemoveLike(int id, string? returnUrl)
         {
             likesService.RemoveItem(id);
 
-            return RedirectToAction("Index");
+            return Redirect(returnUrl ?? "/");
         }
     }
 }

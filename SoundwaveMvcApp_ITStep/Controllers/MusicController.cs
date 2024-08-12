@@ -24,6 +24,14 @@ namespace SoundwaveMvcApp_ITStep.Controllers
             return View(musicService.GetTracks());
         }
 
+        public IActionResult Details(int id)
+        {
+            var isLiked = musicService.IsLiked(id);
+            ViewBag.IsLiked = isLiked;
+
+            return View(musicService.GetDetails(id));
+        }
+
         public IActionResult Archive()
         {
             return View(musicService.GetArchivedTracks());

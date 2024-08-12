@@ -21,6 +21,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 
         public IActionResult Index()
         {
+            // TODO: optimize a isLiked
             var homePageData = homeService.GetHomePageData();
             ViewBag.LikedTracks = homePageData.LikedTracks;
 
