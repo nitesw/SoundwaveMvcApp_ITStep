@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDb : Migration
+    public partial class InitDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,8 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PlaylistCount = table.Column<int>(type: "int", nullable: false),
+                    TrackCount = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -172,6 +174,27 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Playlists",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Playlists", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Playlists_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tracks",
                 columns: table => new
                 {
@@ -201,6 +224,30 @@ namespace Data.Migrations
                         name: "FK_Tracks_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlaylistTrack",
+                columns: table => new
+                {
+                    PlaylistsId = table.Column<int>(type: "int", nullable: false),
+                    TracksId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlaylistTrack", x => new { x.PlaylistsId, x.TracksId });
+                    table.ForeignKey(
+                        name: "FK_PlaylistTrack_Playlists_PlaylistsId",
+                        column: x => x.PlaylistsId,
+                        principalTable: "Playlists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlaylistTrack_Tracks_TracksId",
+                        column: x => x.TracksId,
+                        principalTable: "Tracks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -244,15 +291,6 @@ namespace Data.Migrations
                     { 32, "Other" }
                 });
 
-            migrationBuilder.InsertData(
-                table: "Tracks",
-                columns: new[] { "Id", "AdditionalTags", "ArtistName", "Description", "GenreId", "ImgUrl", "IsArchived", "IsPublic", "Title", "TrackUrl", "UploadDate", "UserId" },
-                values: new object[,]
-                {
-                    { 1, "true, tags", "Me", "True test music", 2, "https://i.redd.it/lhg9d9b80lz61.png", false, true, "Test Song", "randomsite.com/songurl.mp3", new DateTime(2024, 8, 13, 0, 0, 0, 0, DateTimeKind.Local), null },
-                    { 2, null, null, null, 1, "https://preview.redd.it/o94pn5h60lz61.png?width=1080&crop=smart&auto=webp&s=7464db335ee53167d2f6e2288d162711ed0a31d1", false, false, "Test Song 2", "aaa.com/mp3", new DateTime(2024, 8, 13, 0, 0, 0, 0, DateTimeKind.Local), null }
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -293,6 +331,16 @@ namespace Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Playlists_UserId",
+                table: "Playlists",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlaylistTrack_TracksId",
+                table: "PlaylistTrack",
+                column: "TracksId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tracks_GenreId",
                 table: "Tracks",
                 column: "GenreId");
@@ -328,10 +376,16 @@ namespace Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Tracks");
+                name: "PlaylistTrack");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Playlists");
+
+            migrationBuilder.DropTable(
+                name: "Tracks");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

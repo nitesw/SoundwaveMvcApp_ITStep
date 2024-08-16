@@ -1,4 +1,6 @@
-﻿@inject LikesService likesService;
+﻿@using Microsoft.AspNetCore.Identity
+@inject LikesService likesService;
+@inject SignInManager<User> SignInManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,15 +28,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Music" asp-action="Index">Music</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
-                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Music" asp-action="Index">Music</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Likes" asp-action="Index">Likes (@likesService.GetCount())</a>
                         </li>
+                        
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Playlists" asp-action="Index">Playlists</a>
+                            </li>
+                        
                     </ul>
                     <partial name="_LoginPartial.cshtml" />
                 </div>

@@ -17,6 +17,7 @@
         public Genre? Genre { get; set; }
         public string? UserId { get; set; }
         public User? User { get; set; }
- 
+
+        public ICollection<Playlist>? Playlists { get; set; }
     }
 }

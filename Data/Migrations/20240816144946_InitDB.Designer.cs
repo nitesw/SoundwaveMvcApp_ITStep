@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(SoundwaveDbContext))]
-    [Migration("20240812232415_InitDb")]
-    partial class InitDb
+    [Migration("20240816144946_InitDB")]
+    partial class InitDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -204,6 +204,35 @@ namespace Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Data.Entities.Playlist", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImgUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Playlists");
+                });
+
             modelBuilder.Entity("Data.Entities.Track", b =>
                 {
                     b.Property<int>("Id")
@@ -258,33 +287,6 @@ namespace Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Tracks");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AdditionalTags = "true, tags",
-                            ArtistName = "Me",
-                            Description = "True test music",
-                            GenreId = 2,
-                            ImgUrl = "https://i.redd.it/lhg9d9b80lz61.png",
-                            IsArchived = false,
-                            IsPublic = true,
-                            Title = "Test Song",
-                            TrackUrl = "randomsite.com/songurl.mp3",
-                            UploadDate = new DateTime(2024, 8, 13, 0, 0, 0, 0, DateTimeKind.Local)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            GenreId = 1,
-                            ImgUrl = "https://preview.redd.it/o94pn5h60lz61.png?width=1080&crop=smart&auto=webp&s=7464db335ee53167d2f6e2288d162711ed0a31d1",
-                            IsArchived = false,
-                            IsPublic = false,
-                            Title = "Test Song 2",
-                            TrackUrl = "aaa.com/mp3",
-                            UploadDate = new DateTime(2024, 8, 13, 0, 0, 0, 0, DateTimeKind.Local)
-                        });
                 });
 
             modelBuilder.Entity("Data.Entities.User", b =>
@@ -329,8 +331,14 @@ namespace Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("PlaylistCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrackCount")
+                        .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -489,6 +497,30 @@ namespace Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("PlaylistTrack", b =>
+                {
+                    b.Property<int>("PlaylistsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TracksId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PlaylistsId", "TracksId");
+
+                    b.HasIndex("TracksId");
+
+                    b.ToTable("PlaylistTrack");
+                });
+
+            modelBuilder.Entity("Data.Entities.Playlist", b =>
+                {
+                    b.HasOne("Data.Entities.User", "User")
+                        .WithMany("Playlists")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Data.Entities.Track", b =>
                 {
                     b.HasOne("Data.Entities.Genre", "Genre")
@@ -557,6 +589,21 @@ namespace Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PlaylistTrack", b =>
+                {
+                    b.HasOne("Data.Entities.Playlist", null)
+                        .WithMany()
+                        .HasForeignKey("PlaylistsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.Entities.Track", null)
+                        .WithMany()
+                        .HasForeignKey("TracksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Data.Entities.Genre", b =>
                 {
                     b.Navigation("Tracks");
@@ -564,6 +611,8 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Entities.User", b =>
                 {
+                    b.Navigation("Playlists");
+
                     b.Navigation("Tracks");
                 });
 #pragma warning restore 612, 618

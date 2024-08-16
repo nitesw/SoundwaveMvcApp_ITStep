@@ -17,11 +17,11 @@ namespace SoundwaveMvcApp_ITStep.Services
             this.mapper = mapper;
         }
 
-        /*public List<User> GetUsers()
+        public List<User> GetUsers()
         {
-            *//*var users = ctx.Users.ToList();
+            var users = ctx.Users.ToList();
 
-            return List<users>;*//*
-        }*/
+            return users;
+        }
     }
 }

@@ -16,8 +16,8 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 
         public IActionResult Index()
         {
-            return View("Index");
-            //return View(usersService.GetUsers());
+            //return View("Index");
+            return View(usersService.GetUsers());
         }
     }
 }

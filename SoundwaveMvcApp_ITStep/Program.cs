@@ -49,6 +49,7 @@ namespace SoundwaveMvcApp_ITStep
             builder.Services.AddScoped<UsersService>();
             builder.Services.AddScoped<HomeService>();
             builder.Services.AddScoped<MusicService>();
+            builder.Services.AddScoped<PlaylistsService>();
 
             var app = builder.Build();
 

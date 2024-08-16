@@ -15,6 +15,10 @@ namespace Data.Entities
         public int Follows { get; set; }
         public bool IsPro { get; set ;}*/
 
+        public int PlaylistCount { get; set; }
+        public int TrackCount { get; set; }
+
         public ICollection<Track>? Tracks { get; set; }
+        public ICollection<Playlist>? Playlists { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
     public class MusicController : Controller
     {
         private readonly MusicService musicService;
+        private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
         public MusicController(MusicService musicService)
         {
@@ -62,7 +63,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
         {
             LoadGenres();
             ViewBag.UploadMode = true;
-            ViewBag.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewBag.UserId = UserId;
             return View("Upsert");
         }
         [HttpPost]
@@ -71,12 +72,12 @@ namespace SoundwaveMvcApp_ITStep.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.UploadMode = true;
-                ViewBag.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                ViewBag.UserId = UserId;
                 LoadGenres();
                 return View("Upsert", model);
             }
 
-            musicService.CreateItem(model);
+            musicService.CreateItem(model, UserId);
             return RedirectToAction("Index");
         }
 

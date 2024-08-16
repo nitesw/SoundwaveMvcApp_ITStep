@@ -9,9 +9,10 @@
             <th scope="col">#</th>
             <th scope="col">Username</th>
             <th scope="col">Email</th>
-            <th scope="col">Password</th>
-            <th scope="col">Likes</th>
-            <th scope="col">Playlists</th>
+            <th scope="col">PasswordHash</th>
+            <th scope="col">PhoneNumber</th>
+            <th scope="col">TrackCount</th>
+            <th scope="col">PlaylistCount</th>
             @* <th scope="col">Comments</th>
             <th scope="col">Follows</th>
             <th scope="col">Uploaded Tracks</th> *@
@@ -21,7 +22,17 @@
         @foreach (var user in Model)
         {
             <tr>
-                <th scope="row">@user.Id</th>
+                <th scope="row">
+                    <span title="@user.Id">@user.Id.Substring(0, 5)...</span>
+                </th>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    <span title="@user.PasswordHash">@user.PasswordHash!.Substring(0, 5)...</span>
+                </td>
+                <td>@(user.PhoneNumber != null ? user.PhoneNumber : "-")</td>
+                <td>@user.TrackCount</td>
+                <td>@user.PlaylistCount</td>
                 @* <td>@user.Username</td>
                 <td>@user.Email</td>
                 <td>@user.Password</td>
