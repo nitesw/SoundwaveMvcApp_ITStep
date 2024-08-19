@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Dtos;
 using Data.Data;
+using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace SoundwaveMvcApp_ITStep.Services
@@ -23,6 +24,16 @@ namespace SoundwaveMvcApp_ITStep.Services
                 .ToList();
 
             return mapper.Map<List<PlaylistDto>>(playlists);
+        }
+
+        public void CreateItem(Playlist model, string userId)
+        {
+            User user = ctx.Users.FirstOrDefault(x => x.Id == userId)!;
+            ctx.Entry(user).State = EntityState.Modified;
+            user.PlaylistCount++;
+
+            ctx.Playlists.Add(model);
+            ctx.SaveChanges();
         }
     }
 }
