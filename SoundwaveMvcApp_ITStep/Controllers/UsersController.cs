@@ -2,9 +2,11 @@
 using Data.Data;
 using AutoMapper;
 using SoundwaveMvcApp_ITStep.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private UsersService usersService;
@@ -16,7 +18,6 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 
         public IActionResult Index()
         {
-            //return View("Index");
             return View(usersService.GetUsers());
         }
     }

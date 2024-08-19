@@ -3,6 +3,7 @@ using Core.Dtos;
 using Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace SoundwaveMvcApp_ITStep.Services
 {
@@ -17,11 +18,14 @@ namespace SoundwaveMvcApp_ITStep.Services
             this.mapper = mapper;
         }
 
-        public List<User> GetUsers()
+        public List<UserDto> GetUsers()
         {
-            var users = ctx.Users.ToList();
+            var users = ctx.Users
+                .Include(x => x.Tracks)
+                .Include(x => x.Playlists)
+                .ToList();
 
-            return users;
+            return mapper.Map<List<UserDto>>(users);
         }
     }
 }

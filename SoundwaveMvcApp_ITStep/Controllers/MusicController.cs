@@ -8,9 +8,11 @@ using Data.Entities;
 using System.Diagnostics;
 using SoundwaveMvcApp_ITStep.Services;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {
+    [Authorize]
     public class MusicController : Controller
     {
         private readonly MusicService musicService;
@@ -26,6 +28,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
             return View(musicService.GetTracks());
         }
 
+        [AllowAnonymous]
         public IActionResult Details(int id)
         {
             var isLiked = musicService.IsLiked(id);
@@ -77,7 +80,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
                 return View("Upsert", model);
             }
 
-            musicService.CreateItem(model, UserId);
+            musicService.CreateItem(model);
             return RedirectToAction("Index");
         }
 

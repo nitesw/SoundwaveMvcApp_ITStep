@@ -28,10 +28,6 @@ namespace SoundwaveMvcApp_ITStep.Services
 
         public void CreateItem(Playlist model, string userId)
         {
-            User user = ctx.Users.FirstOrDefault(x => x.Id == userId)!;
-            ctx.Entry(user).State = EntityState.Modified;
-            user.PlaylistCount++;
-
             ctx.Playlists.Add(model);
             ctx.SaveChanges();
         }

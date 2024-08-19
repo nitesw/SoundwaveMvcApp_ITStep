@@ -69,12 +69,8 @@ namespace SoundwaveMvcApp_ITStep.Services
             ctx.SaveChanges();
         }
 
-        public void CreateItem(TrackDto model, string userId)
+        public void CreateItem(TrackDto model)
         {
-            User user = ctx.Users.FirstOrDefault(x => x.Id == userId)!;
-            ctx.Entry(user).State = EntityState.Modified;
-            user.TrackCount++;
-
             ctx.Tracks.Add(mapper.Map<Track>(model));
             ctx.SaveChanges();
         }
