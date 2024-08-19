@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(SoundwaveDbContext))]
-    [Migration("20240816144946_InitDB")]
+    [Migration("20240819161412_InitDB")]
     partial class InitDB
     {
         /// <inheritdoc />
