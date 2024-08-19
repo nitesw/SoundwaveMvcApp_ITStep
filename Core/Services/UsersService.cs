@@ -1,7 +1,6 @@
 ﻿using Data.Data;
 using Core.Dtos;
 using Data.Entities;
-using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Core.Interfaces;
