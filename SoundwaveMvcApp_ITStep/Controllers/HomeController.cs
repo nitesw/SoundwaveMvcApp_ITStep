@@ -7,14 +7,15 @@ using SoundwaveMvcApp_ITStep.Models;
 using System.Diagnostics;
 using SoundwaveMvcApp_ITStep.Extensions;
 using SoundwaveMvcApp_ITStep.Services;
+using Core.Interfaces;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly HomeService homeService;
+        private readonly IHomeService homeService;
 
-        public HomeController(HomeService homeService)
+        public HomeController(IHomeService homeService)
         {
             this.homeService = homeService;
         }

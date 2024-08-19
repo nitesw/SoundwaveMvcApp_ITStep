@@ -1,4 +1,5 @@
-﻿using Data.Entities;
+﻿using Core.Interfaces;
+using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SoundwaveMvcApp_ITStep.Services;
@@ -9,10 +10,10 @@ namespace SoundwaveMvcApp_ITStep.Controllers
     [Authorize]
     public class PlaylistsController : Controller
     {
-        private readonly PlaylistsService playlistService;
+        private readonly IPlaylistsService playlistService;
         private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-        public PlaylistsController(PlaylistsService playlistService)
+        public PlaylistsController(IPlaylistsService playlistService)
         {
             this.playlistService = playlistService;
         }
@@ -39,7 +40,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
                 return View("Upsert", model);
             }
 
-            playlistService.CreateItem(model, UserId);
+            playlistService.CreateItem(model);
 
             return RedirectToAction(nameof(Index));
         }

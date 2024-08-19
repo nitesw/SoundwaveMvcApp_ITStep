@@ -9,16 +9,17 @@ using System.Diagnostics;
 using SoundwaveMvcApp_ITStep.Services;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Core.Interfaces;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {
     [Authorize]
     public class MusicController : Controller
     {
-        private readonly MusicService musicService;
+        private readonly IMusicService musicService;
         private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-        public MusicController(MusicService musicService)
+        public MusicController(IMusicService musicService)
         {
             this.musicService = musicService;
         }

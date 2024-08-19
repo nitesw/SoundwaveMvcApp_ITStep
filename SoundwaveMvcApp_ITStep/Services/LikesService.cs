@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Dtos;
+using Core.Interfaces;
 using Data.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using SoundwaveMvcApp_ITStep.Extensions;
 
 namespace SoundwaveMvcApp_ITStep.Services
 {
-    public class LikesService
+    public class LikesService : ILikesService
     {
         private readonly HttpContext httpContext;
         private readonly IMapper mapper;

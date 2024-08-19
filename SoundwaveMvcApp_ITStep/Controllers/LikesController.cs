@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Dtos;
+using Core.Interfaces;
 using Data.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,9 +11,9 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 {
     public class LikesController : Controller
     {
-        private readonly LikesService likesService;
+        private readonly ILikesService likesService;
 
-        public LikesController(LikesService likesService)
+        public LikesController(ILikesService likesService)
         {
             this.likesService = likesService;
         }

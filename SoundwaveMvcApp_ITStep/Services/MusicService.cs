@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Dtos;
+using Core.Interfaces;
 using Data.Data;
 using Data.Entities;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +11,7 @@ using SoundwaveMvcApp_ITStep.Extensions;
 
 namespace SoundwaveMvcApp_ITStep.Services
 {
-    public class MusicService
+    public class MusicService : IMusicService
     {
         private readonly HttpContext httpContext;
         private SoundwaveDbContext ctx;

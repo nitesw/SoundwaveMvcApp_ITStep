@@ -4,10 +4,11 @@ using Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Core.Interfaces;
 
 namespace SoundwaveMvcApp_ITStep.Services
 {
-    public class UsersService
+    public class UsersService : IUsersService
     {
         private SoundwaveDbContext ctx;
         private readonly IMapper mapper;

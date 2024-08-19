@@ -3,15 +3,16 @@ using Data.Data;
 using AutoMapper;
 using SoundwaveMvcApp_ITStep.Services;
 using Microsoft.AspNetCore.Authorization;
+using Core.Interfaces;
 
 namespace SoundwaveMvcApp_ITStep.Controllers
 {
     [Authorize]
     public class UsersController : Controller
     {
-        private UsersService usersService;
+        private IUsersService usersService;
 
-        public UsersController(UsersService usersService)
+        public UsersController(IUsersService usersService)
         {
             this.usersService = usersService;
         }

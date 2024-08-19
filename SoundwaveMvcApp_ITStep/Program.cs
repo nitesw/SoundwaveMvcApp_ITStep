@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SoundwaveMvcApp_ITStep.Services;
 using Microsoft.AspNetCore.Identity;
 using Data.Entities;
+using Core.Interfaces;
 
 namespace SoundwaveMvcApp_ITStep
 {
@@ -45,11 +46,11 @@ namespace SoundwaveMvcApp_ITStep
                 options.Cookie.IsEssential = true;
             });
 
-            builder.Services.AddScoped<LikesService>();
-            builder.Services.AddScoped<UsersService>();
-            builder.Services.AddScoped<HomeService>();
-            builder.Services.AddScoped<MusicService>();
-            builder.Services.AddScoped<PlaylistsService>();
+            builder.Services.AddScoped<ILikesService, LikesService>();
+            builder.Services.AddScoped<IUsersService, UsersService>();
+            builder.Services.AddScoped<IHomeService, HomeService>();
+            builder.Services.AddScoped<IMusicService, MusicService>();
+            builder.Services.AddScoped<IPlaylistsService, PlaylistsService>();
 
             var app = builder.Build();
 
