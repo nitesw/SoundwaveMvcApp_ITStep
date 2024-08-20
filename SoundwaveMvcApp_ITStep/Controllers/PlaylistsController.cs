@@ -45,7 +45,20 @@ namespace SoundwaveMvcApp_ITStep.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult Delete(int id, string? returnUrl)
+        {
+            playlistService.DeleteItem(id);
+
+            return Redirect(returnUrl ?? "/");
+        }
+
         public IActionResult AddTrack(int playlistId, int trackId, string? returnUrl)
+        {
+            playlistService.AddTrackToPlaylist(playlistId, trackId);
+
+            return Redirect(returnUrl ?? "/");
+        }
+        public IActionResult RemoveTrack(int playlistId, int trackId, string? returnUrl)
         {
             playlistService.AddTrackToPlaylist(playlistId, trackId);
 

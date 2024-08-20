@@ -35,7 +35,18 @@ namespace SoundwaveMvcApp_ITStep.Services
             ctx.Playlists.Add(model);
             ctx.SaveChanges();
         }
-        // TODO: DeleteItem, EditItem
+        public void DeleteItem(int id)
+        {
+            var playlist = ctx.Playlists
+                .Include(p => p.PlaylistTracks)
+                .FirstOrDefault(p => p.Id == id);
+
+            if (playlist == null) return;
+
+            ctx.PlaylistTrack.RemoveRange(playlist.PlaylistTracks!);
+            ctx.Playlists.Remove(playlist);
+            ctx.SaveChanges();
+        }
 
         public void AddTrackToPlaylist(int playlistId, int trackId)
         {
@@ -64,14 +75,12 @@ namespace SoundwaveMvcApp_ITStep.Services
             {
                 PlaylistTrack toDelete = ctx.PlaylistTrack.FirstOrDefault(pt => pt.PlaylistId == playlistId && pt.TrackId == trackId)!;
 
-                Console.WriteLine("\n\n\tRemoved.\n\n");
-
                 ctx.PlaylistTrack.Remove(toDelete);
                 ctx.SaveChanges();
             }
             else
             {
-                Console.WriteLine("\n\n\tError.\n\n");
+                AddTrackToPlaylist(playlistId, trackId);
             }
         }
     }
