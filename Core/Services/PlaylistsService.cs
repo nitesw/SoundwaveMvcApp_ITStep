@@ -18,10 +18,11 @@ namespace SoundwaveMvcApp_ITStep.Services
             this.mapper = mapper;
         }
 
-        public List<PlaylistDto> GetPlaylists()
+        public List<PlaylistDto> GetPlaylists(string userId)
         {
             var playlists = ctx.Playlists
                 .Include(x => x.User)
+                .Where(x => x.UserId == userId)
                 .ToList();
 
             return mapper.Map<List<PlaylistDto>>(playlists);

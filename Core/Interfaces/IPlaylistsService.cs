@@ -10,7 +10,7 @@ namespace Core.Interfaces
 {
     public interface IPlaylistsService
     {
-        List<PlaylistDto> GetPlaylists();
+        List<PlaylistDto> GetPlaylists(string userId);
         void CreateItem(Playlist model);
     }
 }

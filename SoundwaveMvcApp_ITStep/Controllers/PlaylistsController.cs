@@ -20,7 +20,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 
         public IActionResult Index()
         {
-            return View(playlistService.GetPlaylists());
+            return View(playlistService.GetPlaylists(UserId));
         }
 
         [HttpGet]
