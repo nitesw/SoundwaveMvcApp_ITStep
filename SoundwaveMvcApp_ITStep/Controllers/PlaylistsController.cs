@@ -1,4 +1,5 @@
-﻿using Core.Interfaces;
+﻿using Core.Dtos;
+using Core.Interfaces;
 using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -50,6 +51,26 @@ namespace SoundwaveMvcApp_ITStep.Controllers
             playlistService.DeleteItem(id);
 
             return Redirect(returnUrl ?? "/");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            ViewBag.CreateMode = false;
+            return View("Upsert", playlistService.EditItem(id));
+        }
+        [HttpPost]
+        public IActionResult Edit(PlaylistDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.CreateMode = false;
+                ViewBag.UserId = UserId;
+                return View("Upsert", model);
+            }
+
+            playlistService.EditItem(model);
+            return RedirectToAction("Index");
         }
 
         public IActionResult AddTrack(int playlistId, int trackId, string? returnUrl)

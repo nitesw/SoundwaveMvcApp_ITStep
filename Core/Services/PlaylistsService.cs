@@ -83,5 +83,23 @@ namespace SoundwaveMvcApp_ITStep.Services
                 AddTrackToPlaylist(playlistId, trackId);
             }
         }
+
+        public PlaylistDto EditItem(int id)
+        {
+            var playlist = ctx.Playlists.Find(id);
+            if (playlist == null) return null!;
+
+            return mapper.Map<PlaylistDto>(playlist);
+        }
+        public void EditItem(PlaylistDto model)
+        {
+            var playlist = ctx.Playlists.Find(model.Id);
+            if (playlist == null) return;
+
+            mapper.Map(model, playlist);
+            ctx.Entry(playlist).State = EntityState.Modified;
+
+            ctx.SaveChanges();
+        }
     }
 }

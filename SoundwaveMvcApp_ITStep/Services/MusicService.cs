@@ -85,7 +85,12 @@ namespace SoundwaveMvcApp_ITStep.Services
         }
         public void EditItem(TrackDto model)
         {
-            ctx.Tracks.Update(mapper.Map<Track>(model));
+            var existingPlaylist = ctx.Playlists.Find(model.Id);
+            if (existingPlaylist == null) return;
+
+            mapper.Map(model, existingPlaylist);
+            ctx.Entry(existingPlaylist).State = EntityState.Modified;
+
             ctx.SaveChanges();
         }
 
