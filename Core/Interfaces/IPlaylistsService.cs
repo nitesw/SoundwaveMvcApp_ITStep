@@ -12,5 +12,6 @@ namespace Core.Interfaces
     {
         List<PlaylistDto> GetPlaylists(string userId);
         void CreateItem(Playlist model);
+        void AddTrackToPlaylist(int playlistId, int trackId);
     }
 }

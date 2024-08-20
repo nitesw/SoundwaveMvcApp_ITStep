@@ -29,6 +29,8 @@ namespace SoundwaveMvcApp_ITStep.Services
 
             var tracks = ctx.Tracks
                 .Where(x => !x.IsArchived)
+                // TODO: Show only public tracks everywhere
+                //.Where(x => x.IsPublic)
                 .Include(x => x.User)
                 .ToList();
             var mappedTracks = mapper.Map<List<TrackDto>>(tracks);

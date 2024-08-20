@@ -22,6 +22,8 @@ namespace SoundwaveMvcApp_ITStep.Services
         {
             var playlists = ctx.Playlists
                 .Include(x => x.User)
+                .Include(x => x.PlaylistTracks!)
+                .ThenInclude(x => x.Track)
                 .Where(x => x.UserId == userId)
                 .ToList();
 
@@ -32,6 +34,33 @@ namespace SoundwaveMvcApp_ITStep.Services
         {
             ctx.Playlists.Add(model);
             ctx.SaveChanges();
+        }
+        // TODO: DeleteItem, EditItem
+
+        public void AddTrackToPlaylist(int playlistId, int trackId)
+        {
+            bool exists = ctx.PlaylistTrack.Any(pt => pt.PlaylistId == playlistId && pt.TrackId == trackId);
+
+            if(!exists)
+            {
+                PlaylistTrack playlistTrack = new PlaylistTrack
+                {
+                    PlaylistId = playlistId,
+                    TrackId = trackId
+                };
+
+                ctx.PlaylistTrack.Add(playlistTrack);
+                ctx.SaveChanges();
+            }
+            else
+            {
+                RemoveTrackFromPlaylist(playlistId, trackId);
+            }
+        }
+        public void RemoveTrackFromPlaylist(int playlistId, int trackId)
+        {
+            // TODO: add logic
+            Console.WriteLine("\n\nRemoved.\n\n");
         }
     }
 }

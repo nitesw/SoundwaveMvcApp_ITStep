@@ -49,7 +49,7 @@
                             <li><hr class="dropdown-divider"></li>
                             @foreach (var playlist in playlists)
                             {
-                                <li class="dropdown-item">@playlist.Title</li>
+                                <a asp-controller="Playlists" asp-action="AddTrack" asp-route-playlistId="@playlist.Id" asp-route-trackId="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item">@playlist.Title</a>
                             }
                         </ul>
                     </div>

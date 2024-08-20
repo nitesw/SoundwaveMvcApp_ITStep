@@ -44,5 +44,12 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult AddTrack(int playlistId, int trackId, string? returnUrl)
+        {
+            playlistService.AddTrackToPlaylist(playlistId, trackId);
+
+            return Redirect(returnUrl ?? "/");
+        }
     }
 }
