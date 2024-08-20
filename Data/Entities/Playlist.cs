@@ -14,7 +14,7 @@ namespace Data.Entities
         public string? Description { get; set; }
         // TODO: ability to make playlsit public, maybe add the url to it (the url of itself)
 
-        public ICollection<Track>? Tracks { get; set; }
+        public ICollection<PlaylistTrack>? PlaylistTracks { get; set; }
         public string? UserId { get; set; }
         public User? User { get; set; }
     }

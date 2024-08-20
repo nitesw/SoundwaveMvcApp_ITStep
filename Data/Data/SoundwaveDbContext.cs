@@ -10,6 +10,7 @@ namespace Data.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Track> Tracks { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
+        public DbSet<PlaylistTrack> PlaylistTrack { get; set; }
 
         public SoundwaveDbContext() { }
         public SoundwaveDbContext(DbContextOptions options) : base(options) { }
@@ -17,6 +18,8 @@ namespace Data.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<PlaylistTrack>().HasKey(x => new { x.PlaylistId, x.TrackId });
 
             /*modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();

@@ -18,6 +18,6 @@
         public string? UserId { get; set; }
         public User? User { get; set; }
 
-        public ICollection<Playlist>? Playlists { get; set; }
+        public ICollection<PlaylistTrack>? PlaylistTracks { get; set; }
     }
 }
