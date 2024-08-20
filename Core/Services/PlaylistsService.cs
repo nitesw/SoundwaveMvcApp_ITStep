@@ -59,8 +59,20 @@ namespace SoundwaveMvcApp_ITStep.Services
         }
         public void RemoveTrackFromPlaylist(int playlistId, int trackId)
         {
-            // TODO: add logic
-            Console.WriteLine("\n\nRemoved.\n\n");
+            bool exists = ctx.PlaylistTrack.Any(pt => pt.PlaylistId == playlistId && pt.TrackId == trackId);
+            if (exists)
+            {
+                PlaylistTrack toDelete = ctx.PlaylistTrack.FirstOrDefault(pt => pt.PlaylistId == playlistId && pt.TrackId == trackId)!;
+
+                Console.WriteLine("\n\n\tRemoved.\n\n");
+
+                ctx.PlaylistTrack.Remove(toDelete);
+                ctx.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("\n\n\tError.\n\n");
+            }
         }
     }
 }
