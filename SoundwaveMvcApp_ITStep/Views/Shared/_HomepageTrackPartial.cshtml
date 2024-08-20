@@ -1,4 +1,5 @@
 ﻿@{
+    List<PlaylistDto> playlists = ViewBag.Playlists;
     List<TrackDto> likedTracks = ViewBag.LikedTracks;
 }
 @model TrackDto
@@ -37,11 +38,21 @@
             }
             else
             {
-                <div>
-                    <a asp-controller="Likes" asp-action="AddLike" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-light h-75">
+                <div class="d-flex">
+                    <a asp-controller="Likes" asp-action="AddLike" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-light h-75 me-1">
                         <i class="bi bi-heart"></i>
                     </a>
-                    <button class="btn btn-light h-75"><i class="bi bi-music-note-list"></i></button>
+                    <div class="dropdown">
+                        <button class="btn btn-light h-75" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-music-note-list"></i></button>
+                        <ul class="dropdown-menu">
+                            <li><a asp-controller="Playlists" asp-action="Create" class="dropdown-item">Create new playlist</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            @foreach (var playlist in playlists)
+                            {
+                                <li class="dropdown-item">@playlist.Title</li>
+                            }
+                        </ul>
+                    </div>
                 </div>
             }
         </div> 

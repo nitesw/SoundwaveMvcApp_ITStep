@@ -39,5 +39,15 @@ namespace SoundwaveMvcApp_ITStep.Services
                 LikedTracks = mappedLikedTracks
             };
         }
+
+        public List<PlaylistDto> GetUserPlaylists(string userId)
+        {
+            var playlists = ctx.Playlists
+               .Where(x => x.UserId == userId)
+               .Include(x => x.User)
+               .ToList();
+
+            return mapper.Map<List<PlaylistDto>>(playlists);
+        }
     }
 }

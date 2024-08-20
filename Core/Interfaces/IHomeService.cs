@@ -10,5 +10,6 @@ namespace Core.Interfaces
     public interface IHomeService
     {
         HomePageDataDto GetHomePageData();
+        List<PlaylistDto> GetUserPlaylists(string userId);
     }
 }
