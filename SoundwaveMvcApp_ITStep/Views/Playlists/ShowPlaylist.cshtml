@@ -1,0 +1,21 @@
+﻿@model PlaylistDto
+﻿@{
+    ViewData["Title"] = "Playlist " + Model.Title;
+}
+
+<h1 class="text-white">Playlist info</h1>
+<h2 class="text-white">@Model.Id | @Model.Title</h2>
+
+<div class="mt-3">
+    @if (Model.Tracks.Any())
+    {
+        @foreach (var track in Model.Tracks)
+        {
+            <div class="text-white">@track.Id | @track.Title</div>
+        }
+    }
+    else
+    {
+        <h2 class="text-white">No tracks here yet</h2>
+    }
+</div>

@@ -1,0 +1,55 @@
+﻿using AutoMapper;
+using Core.Dtos;
+using Core.Interfaces;
+using Data.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SoundwaveMvcApp_ITStep.Extensions;
+
+namespace SoundwaveMvcApp_ITStep.Services
+{
+    public class HomeService : IHomeService
+    {
+        private readonly HttpContext httpContext;
+        private readonly IMapper mapper;
+        private SoundwaveDbContext ctx;
+
+        public HomeService(IHttpContextAccessor contextAccessor, IMapper mapper, SoundwaveDbContext ctx)
+        {
+            this.httpContext = contextAccessor.HttpContext!;
+            this.mapper = mapper;
+            this.ctx = ctx;
+        }
+
+        public HomePageDataDto GetHomePageData()
+        {
+            var ids = httpContext.Session.Get<List<int>>("liked_items") ?? new();
+            var likedTracks = ctx.Tracks.Include(x => x.Genre).Include(x => x.User).Where(x => ids.Contains(x.Id)).ToList();
+            var mappedLikedTracks = mapper.Map<List<TrackDto>>(likedTracks);
+
+            var tracks = ctx.Tracks
+                .Where(x => !x.IsArchived)
+                // TODO: Show only public tracks everywhere
+                //.Where(x => x.IsPublic)
+                .Include(x => x.User)
+                .ToList();
+            var mappedTracks = mapper.Map<List<TrackDto>>(tracks);
+
+            return new HomePageDataDto
+            {
+                Tracks = mappedTracks,
+                LikedTracks = mappedLikedTracks
+            };
+        }
+
+        public List<PlaylistDto> GetUserPlaylists(string userId)
+        {
+            var playlists = ctx.Playlists
+               .Where(x => x.UserId == userId)
+               .Include(x => x.User)
+               .ToList();
+
+            return mapper.Map<List<PlaylistDto>>(playlists);
+        }
+    }
+}

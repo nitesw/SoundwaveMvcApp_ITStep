@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Music";
+}
+@model List<TrackDto>
+
+<h1 class="text-white">Track List</h1>
+<div class="d-flex justify-content-between">
+    <p class="text-white">You can manage tracks here</p>
+    <p class="text-white">Tracks on Soundwave: @Model.Count</p>
+</div>
+
+<table class="table table-dark my-4">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="text-center">Img</th>
+            <th scope="col">Title</th>
+            @* <th scope="col">Description</th> *@
+            <th scope="col">TrackUrl</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Additional Tags</th>
+            <th scope="col">Artist</th>
+            <th scope="col">User</th>
+            <th scope="col">Public</th>
+            <th scope="col" class="text-center">Upload Date</th>
+            <th scope="col" class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var track in Model)
+        {
+            <tr class="align-middle">
+                <th scope="row">@track.Id</th>
+                <td class="text-center"><img src="@track.ImgUrl" alt="@track.Title" class="track-img" /></td>
+                <td>
+                    @if (track.Title!.Length < 20)
+                    {
+                        <span>@track.Title</span>
+                    }
+                    else
+                    {
+                        <span title="@track.Title">@track.Title.Substring(0, 20)...</span>
+                    }
+                </td>
+                @* <td>@(!string.IsNullOrEmpty(track.Description) ? track.Description : "-")</td> *@
+                <td>
+                    @if (track.TrackUrl!.Length < 25)
+                    {
+                        <span>@track.TrackUrl</span>
+                    }
+                    else
+                    {
+                        <span title="@track.TrackUrl">@track.TrackUrl.Substring(0, 25)...</span>
+                    }
+                </td>
+                <td>
+                    @if (track.GenreId == 1)
+                    {
+                        <span>-</span>
+                    }
+                    else
+                    {
+                        <span>@track.GenreName</span>
+                    }
+                </td>
+                <td>@(!string.IsNullOrEmpty(track.AdditionalTags) ? track.AdditionalTags : "-")</td>
+                <td>@(!string.IsNullOrEmpty(track.ArtistName) ? track.ArtistName : "-")</td>
+                <td>@track.UserUsername</td>
+                <td>@track.IsPublic</td>
+                <td class="text-center">@track.UploadDate.ToString("dd.MM.yyyy")</td>
+                <td class="text-nowrap text-center">
+                    <a asp-controller="Music" asp-action="Edit" asp-route-id="@track.Id" class="btn btn-outline-info">
+                        <i class="bi bi-pencil-fill"></i>
+                    </a>
+                    <a asp-controller="Music" asp-action="ArchiveTrack" asp-route-id="@track.Id" class="btn btn-outline-light">
+                        <i class="bi bi-archive-fill"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-between">
+    <a asp-controller="Music" asp-action="Archive" class="btn btn-outline-light">
+        <i class="bi bi-archive-fill"></i>
+        <span>Archived Tracks</span>
+    </a>
+    <a asp-controller="Music" asp-action="Create" class="btn btn-outline-success">
+        <i class="bi bi-plus-circle"></i>
+        <span>Upload New Track</span>
+    </a>
+</div>

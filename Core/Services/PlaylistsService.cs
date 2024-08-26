@@ -1,0 +1,123 @@
+﻿using AutoMapper;
+using Core.Dtos;
+using Core.Interfaces;
+using Data.Data;
+using Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
+
+namespace SoundwaveMvcApp_ITStep.Services
+{
+    public class PlaylistsService : IPlaylistsService
+    {
+        private SoundwaveDbContext ctx;
+        private readonly IEmailSender emailSender;
+        private readonly IMapper mapper;
+
+        public PlaylistsService(IMapper mapper, SoundwaveDbContext ctx, IEmailSender emailSender)
+        {
+            this.ctx = ctx;
+            this.emailSender = emailSender;
+            this.mapper = mapper;
+        }
+
+        public List<PlaylistDto> GetPlaylists(string userId)
+        {
+            var playlists = ctx.Playlists
+                .Include(x => x.User)
+                .Include(x => x.PlaylistTracks!)
+                .ThenInclude(x => x.Track)
+                .Where(x => x.UserId == userId)
+                .ToList();
+
+            return mapper.Map<List<PlaylistDto>>(playlists);
+        }
+        public PlaylistDto GetPlaylist(int playlistId, string userId)
+        {
+            var playlist = ctx.Playlists
+                .Include(x => x.User)
+                .Include(x => x.PlaylistTracks!)
+                .ThenInclude(x => x.Track)
+                .Where(x => x.UserId == userId)
+                .FirstOrDefault(x => x.Id == playlistId);
+
+            if (playlist == null) return null;
+
+            return mapper.Map<PlaylistDto>(playlist);
+        }
+
+        public async Task CreateItem(Playlist model, string userEmail)
+        {
+            ctx.Playlists.Add(model);
+            await emailSender.SendEmailAsync(userEmail, $"New Playlist: {model.Title}", $"<h1>You've created new playlist on Soundwave</h1>");
+            ctx.SaveChanges();
+        }
+        public void DeleteItem(int id)
+        {
+            var playlist = ctx.Playlists
+                .Include(p => p.PlaylistTracks)
+                .FirstOrDefault(p => p.Id == id);
+
+            if (playlist == null) return;
+
+            ctx.PlaylistTrack.RemoveRange(playlist.PlaylistTracks!);
+            ctx.Playlists.Remove(playlist);
+            ctx.SaveChanges();
+        }
+
+        public void AddTrackToPlaylist(int playlistId, int trackId)
+        {
+            bool exists = ctx.PlaylistTrack.Any(pt => pt.PlaylistId == playlistId && pt.TrackId == trackId);
+
+            if(!exists)
+            {
+                PlaylistTrack playlistTrack = new PlaylistTrack
+                {
+                    PlaylistId = playlistId,
+                    TrackId = trackId
+                };
+
+                ctx.PlaylistTrack.Add(playlistTrack);
+                ctx.SaveChanges();
+            }
+            else
+            {
+                RemoveTrackFromPlaylist(playlistId, trackId);
+            }
+        }
+        public void RemoveTrackFromPlaylist(int playlistId, int trackId)
+        {
+            bool exists = ctx.PlaylistTrack.Any(pt => pt.PlaylistId == playlistId && pt.TrackId == trackId);
+            if (exists)
+            {
+                PlaylistTrack toDelete = ctx.PlaylistTrack.FirstOrDefault(pt => pt.PlaylistId == playlistId && pt.TrackId == trackId)!;
+
+                ctx.PlaylistTrack.Remove(toDelete);
+                ctx.SaveChanges();
+            }
+            else
+            {
+                AddTrackToPlaylist(playlistId, trackId);
+            }
+        }
+
+        public PlaylistDto EditItem(int id)
+        {
+            var playlist = ctx.Playlists.Find(id);
+            if (playlist == null) return null!;
+
+            return mapper.Map<PlaylistDto>(playlist);
+        }
+        public void EditItem(PlaylistDto model)
+        {
+            var playlist = ctx.Playlists.Find(model.Id);
+            if (playlist == null) return;
+
+            mapper.Map(model, playlist);
+            ctx.Entry(playlist).State = EntityState.Modified;
+
+            ctx.SaveChanges();
+        }
+    }
+}

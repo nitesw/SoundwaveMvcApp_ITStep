@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Likes";
+}
+@model List<TrackDto>
+
+<h1 class="text-white text-center mb-3">Liked tracks</h1>
+@if (Model.Any())
+{
+    <div class="row">
+        @foreach (var track in Model)
+        {
+            <div class="d-flex mb-4 col-6">
+                <a asp-controller="Music" asp-action="Details" asp-route-id="@track.Id" class="track-title"><img src="@track.ImgUrl" style="height:160px; width:160px; border-radius:3px;" alt="@track.Title" draggable="false" class="mt-2 mb-0 me-3" /></a>
+                <div class="d-flex flex-column justify-content-between">
+                    <div>
+                        <h6 class="text-secondary mt-2 mb-0">@track.UserUsername</h6>
+                        <a asp-controller="Music" asp-action="Details" asp-route-id="@track.Id" class="track-title"><h5 class="mb-0"><h2 class="track-title">@track.Title</h2></h5></a>
+                    </div>
+                    <div>
+                        <a asp-action="RemoveLike" asp-route-id="@track.Id" asp-route-returnUrl="@Context.Request.Path" id="removeLikeBtn" class="btn btn-light">
+                            <i class="bi bi-heart"></i>
+                        </a>
+                        <button class="btn btn-light"><i class="bi bi-music-note-list"></i></button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-secondary text-center">
+        <p class="mb-0">It looks like you don't have any tracks you liked yet.</p>
+        <p>Explore the home page and find tracks you like!</p>
+    </div>
+}

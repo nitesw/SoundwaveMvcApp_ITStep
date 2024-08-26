@@ -1,0 +1,56 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.track-img {
+    width: 32px;
+    height: 32px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: .1s;
+}
+.track-img:hover {
+    transform: scale(2.3);
+}
+
+.track-title{
+    text-decoration: none;
+    color: white;
+}
+.track-title:hover {
+    color: #adb5bd;
+}
+
+.login-text-url {
+    color: #adb5bd;
+}
+.login-text-url:hover {
+    color: #6c757d;
+}
+
+.square-image {
+    border-radius: 3px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}

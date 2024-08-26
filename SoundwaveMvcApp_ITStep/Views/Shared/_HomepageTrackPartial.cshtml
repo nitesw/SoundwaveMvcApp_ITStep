@@ -1,0 +1,62 @@
+﻿@{
+    List<PlaylistDto> playlists = ViewBag.Playlists;
+    List<TrackDto> likedTracks = ViewBag.LikedTracks;
+}
+@model TrackDto
+
+<div class="col">
+    <div class="homepage-track">
+        @* TODO: onclcik get to the track page *@
+        <a asp-controller="Music" asp-action="Details" asp-route-id="@Model.Id">
+            <img src="@Model.ImgUrl" alt="@Model.Title" draggable="false" class="mb-2 w-100 square-image" />
+        </a>
+        <div class="d-flex justify-content-between">
+            <div >
+                <a asp-controller="Music" asp-action="Details" asp-route-id="@Model.Id" class="track-title"><h5 class="mb-0">@Model.Title</h5></a>
+                @* TODO: onclcik get to the user page *@
+                <h6 class="text-secondary">@Model.UserUsername</h6>
+            </div>
+            @if (likedTracks.Count != 0)
+            {
+                var isLiked = likedTracks.FirstOrDefault(x => x.Id == Model.Id);
+                @if (isLiked == null)
+                {
+                    <div>
+                        <a asp-controller="Likes" asp-action="AddLike" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-light h-75">
+                            <i class="bi bi-heart"></i>
+                        </a>
+                        <button class="btn btn-light h-75"><i class="bi bi-music-note-list"></i></button>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <a asp-controller="Likes" asp-action="RemoveLike" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-light h-75">
+                            <i class="bi bi-heart"></i>
+                        </a>
+                        <button class="btn btn-light h-75"><i class="bi bi-music-note-list"></i></button>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="d-flex">
+                    <a asp-controller="Likes" asp-action="AddLike" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-light h-75 me-1">
+                        <i class="bi bi-heart"></i>
+                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-light h-75" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-music-note-list"></i></button>
+                        <ul class="dropdown-menu">
+                            <li><a asp-controller="Playlists" asp-action="Create" class="dropdown-item">Create new playlist</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            @foreach (var playlist in playlists)
+                            {
+                                <a asp-controller="Playlists" asp-action="AddTrack" asp-route-playlistId="@playlist.Id" asp-route-trackId="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item">@playlist.Title</a>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div> 
+    </div>
+</div>

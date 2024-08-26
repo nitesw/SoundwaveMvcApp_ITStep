@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Users";
+}
+@model List<UserDto>
+
+<h1 class="text-white">Users</h1>
+<div class="d-flex justify-content-between">
+    <p class="text-white">You can manage users here</p>
+    <p class="text-white">Users on Soundwave: @Model.Count</p>
+</div>
+
+<table class="table table-dark my-4">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">PasswordHash</th>
+            <th scope="col">PhoneNumber</th>
+            <th scope="col">TrackCount</th>
+            <th scope="col">PlaylistCount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <th scope="row">
+                    <span title="@user.Id">@user.Id.Substring(0, 5)...</span>
+                </th>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    <span title="@user.PasswordHash">@user.PasswordHash!.Substring(0, 5)...</span>
+                </td>
+                <td>@(user.PhoneNumber != null ? user.PhoneNumber : "-")</td>
+                <td>@user.TrackCount</td>
+                <td>@user.PlaylistCount</td>
+            </tr>
+        } 
+    </tbody>
+</table>
