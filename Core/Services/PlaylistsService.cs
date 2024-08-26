@@ -50,8 +50,8 @@ namespace SoundwaveMvcApp_ITStep.Services
         public async Task CreateItem(Playlist model, string userEmail)
         {
             ctx.Playlists.Add(model);
-            await emailSender.SendEmailAsync(userEmail, $"New Playlist: {model.Title}", $"<h1>You've created new playlist on Soundwave</h1>");
             ctx.SaveChanges();
+            await emailSender.SendEmailAsync(userEmail, $"New Playlist: {model.Title}", $"<h1>You've created new playlist on Soundwave</h1>");
         }
         public void DeleteItem(int id)
         {

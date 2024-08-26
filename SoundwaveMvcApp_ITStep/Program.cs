@@ -37,7 +37,7 @@ namespace SoundwaveMvcApp_ITStep
 
             builder.Services.AddIdentity<User, IdentityRole>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = false;
+                options.SignIn.RequireConfirmedAccount = true;
                 options.Password.RequireNonAlphanumeric = false;
             })
                 .AddDefaultTokenProviders()

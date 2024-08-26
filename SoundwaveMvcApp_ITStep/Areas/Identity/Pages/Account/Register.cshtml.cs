@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Core.Interfaces;
 using Data.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -20,6 +21,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using SoundwaveMvcApp_ITStep.SeedExtensions;
+using SoundwaveMvcApp_ITStep.Services;
 
 namespace SoundwaveMvcApp_ITStep.Areas.Identity.Pages.Account
 {
@@ -123,6 +125,8 @@ namespace SoundwaveMvcApp_ITStep.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                // TODO: unique email
+                //var isExists = await _userManager.FindByEmailAsync(Input.Email);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

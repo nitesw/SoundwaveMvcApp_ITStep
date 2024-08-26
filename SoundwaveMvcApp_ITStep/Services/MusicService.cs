@@ -91,10 +91,9 @@ namespace SoundwaveMvcApp_ITStep.Services
             entity.ImgUrl = await filesService.SaveTrackImage(model.Image);
 
             ctx.Tracks.Add(entity);
+            ctx.SaveChanges();
 
             await emailSender.SendEmailAsync(userEmail, $"New Track: {entity.Title}", "<h1>You've created new track.</h1>");
-
-            ctx.SaveChanges();
         }
 
         public TrackDto EditItem(int id)
