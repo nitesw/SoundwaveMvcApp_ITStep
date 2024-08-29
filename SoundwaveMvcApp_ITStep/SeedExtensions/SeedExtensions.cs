@@ -45,7 +45,8 @@ namespace SoundwaveMvcApp_ITStep.SeedExtensions
                 var user = new User
                 {
                     UserName = USERNAME,
-                    Email = EMAIL
+                    Email = EMAIL,
+                    EmailConfirmed = true
                 };
 
                 var result = await userManager.CreateAsync(user, PASSWORD);
