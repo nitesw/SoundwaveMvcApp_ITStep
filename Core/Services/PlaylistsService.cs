@@ -62,7 +62,7 @@ namespace SoundwaveMvcApp_ITStep.Services
 
             var entity = mapper.Map<Playlist>(model);
 
-            entity.ImgUrl = await filesService.SaveImage(model.Image);
+            entity.ImgUrl = await filesService.SaveFile(model.Image, true);
             entity.UserId = user.Id;
             ctx.Entry(user).State = EntityState.Unchanged;
             entity.User = user;
@@ -84,7 +84,7 @@ namespace SoundwaveMvcApp_ITStep.Services
             if (playlist == null) return;
 
             if (playlist.ImgUrl != null)
-                await filesService.DeleteImage(playlist.ImgUrl);
+                await filesService.DeleteFile(playlist.ImgUrl);
 
             ctx.PlaylistTrack.RemoveRange(playlist.PlaylistTracks!);
 
@@ -137,12 +137,12 @@ namespace SoundwaveMvcApp_ITStep.Services
         }
         public async Task EditItem(PlaylistDto model)
         {
-            var playlist = ctx.Playlists.Find(model.Id);
+            var playlist = ctx.Playlists.FirstOrDefault(x => x.Id == model.Id);
             if (playlist == null) return;
 
             if (model.Image != null)
             {
-                model.ImgUrl = await filesService.EditImage(model.ImgUrl, model.Image);
+                model.ImgUrl = await filesService.EditFile(model.ImgUrl, model.Image, true);
             }
 
             mapper.Map(model, playlist);

@@ -76,7 +76,7 @@ namespace SoundwaveMvcApp_ITStep.Services
             if (track == null) return;
 
             if (track.ImgUrl != null)
-                await filesService.DeleteImage(track.ImgUrl);
+                await filesService.DeleteFile(track.ImgUrl);
 
             ctx.PlaylistTrack.RemoveRange(track.PlaylistTracks!);
 
@@ -88,7 +88,8 @@ namespace SoundwaveMvcApp_ITStep.Services
         {
             var entity = mapper.Map<Track>(model);
 
-            entity.ImgUrl = await filesService.SaveImage(model.Image);
+            entity.ImgUrl = await filesService.SaveFile(model.Image, true);
+            entity.TrackUrl = await filesService.SaveFile(model.Track, false);
 
             ctx.Tracks.Add(entity);
             ctx.SaveChanges();
@@ -107,7 +108,7 @@ namespace SoundwaveMvcApp_ITStep.Services
         {
             if (model.Image != null)
             {
-                model.ImgUrl = await filesService.EditImage(model.ImgUrl, model.Image);
+                model.ImgUrl = await filesService.EditFile(model.ImgUrl, model.Image, true);
             }
             ctx.Tracks.Update(mapper.Map<Track>(model));
             ctx.SaveChanges();

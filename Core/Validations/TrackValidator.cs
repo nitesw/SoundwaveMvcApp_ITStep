@@ -18,10 +18,6 @@ namespace Core.Validations
                 .MinimumLength(2)
                 .MaximumLength(100)
                 .Must(UniqueTitle).WithMessage("The track with this title is already exists.");
-            RuleFor(x => x.TrackUrl)
-                .NotNull()
-                .NotEmpty()
-                .Must(LinkMustBeAUri).WithMessage("The URL must be valid.");
             RuleFor(x => x.AdditionalTags)
                 .MaximumLength(150);
             RuleFor(x => x.ArtistName)

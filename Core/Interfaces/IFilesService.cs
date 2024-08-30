@@ -9,8 +9,8 @@ namespace Core.Interfaces
 {
     public interface IFilesService
     {
-        Task<string> SaveImage(IFormFile file);
-        Task DeleteImage(string path);
-        Task<string> EditImage(string oldPath, IFormFile newFile);
+        Task<string> SaveFile(IFormFile file, bool isImage);
+        Task DeleteFile(string path);
+        Task<string> EditFile(string oldPath, IFormFile newFile, bool isImage);
     }
 }

@@ -5,6 +5,7 @@ namespace SoundwaveMvcApp_ITStep.Services
     public class FilesService : IFilesService
     {
         const string imageFolder = "images";
+        const string trackFolder = "audios";
         private readonly IWebHostEnvironment environment;
 
         public FilesService(IWebHostEnvironment environment)
@@ -12,7 +13,7 @@ namespace SoundwaveMvcApp_ITStep.Services
             this.environment = environment;
         }
 
-        public Task DeleteImage(string path)
+        public Task DeleteFile(string path)
         {
             string root = environment.WebRootPath;
             string fullPath = root + path;
@@ -23,28 +24,43 @@ namespace SoundwaveMvcApp_ITStep.Services
             return Task.CompletedTask;
         }
 
-        public async Task<string> EditImage(string oldPath, IFormFile newFile)
+        public async Task<string> EditFile(string oldPath, IFormFile newFile, bool isImage)
         {
-            await DeleteImage(oldPath);
-            return await SaveImage(newFile);
+            await DeleteFile(oldPath);
+            return await SaveFile(newFile, isImage);
         }
 
-        public async Task<string> SaveImage(IFormFile file)
+        public async Task<string> SaveFile(IFormFile file, bool isImage)
         {
             string root = environment.WebRootPath;  
             string name = Guid.NewGuid().ToString();
             string extension = Path.GetExtension(file.FileName);
             string fullName = name + extension;
 
-            string imagePath = Path.Combine(imageFolder, fullName);
-            string imageFullPath = Path.Combine(root, imagePath);
-
-            using (FileStream fs = new FileStream(imageFullPath, FileMode.Create))
+            if(isImage)
             {
-                await file.CopyToAsync(fs);
-            }
+                string imagePath = Path.Combine(imageFolder, fullName);
+                string imageFullPath = Path.Combine(root, imagePath);
 
-            return Path.DirectorySeparatorChar + imagePath;
+                using (FileStream fs = new FileStream(imageFullPath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fs);
+                }
+
+                return Path.DirectorySeparatorChar + imagePath;
+            }
+            else
+            {
+                string trackPath = Path.Combine(trackFolder, fullName);
+                string trackFullPath = Path.Combine(root, trackPath);
+
+                using (FileStream fs = new FileStream(trackFullPath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fs);
+                }
+
+                return Path.DirectorySeparatorChar + trackPath;
+            }
         }
     }
 }
