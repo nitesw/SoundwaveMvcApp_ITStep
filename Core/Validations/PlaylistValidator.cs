@@ -17,10 +17,6 @@ namespace Core.Validations
                 .NotNull()
                 .MinimumLength(2)
                 .MaximumLength(100);
-            RuleFor(x => x.ImgUrl)
-                .NotEmpty()
-                .NotNull()
-                .Must(LinkMustBeAUri).WithMessage("The URL must be valid.");
         }
 
         private static bool LinkMustBeAUri(string? link)

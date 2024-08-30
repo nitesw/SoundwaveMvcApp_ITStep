@@ -12,7 +12,7 @@ namespace SoundwaveMvcApp_ITStep.Services
             this.environment = environment;
         }
 
-        public Task DeleteTrackImage(string path)
+        public Task DeleteImage(string path)
         {
             string root = environment.WebRootPath;
             string fullPath = root + path;
@@ -23,13 +23,13 @@ namespace SoundwaveMvcApp_ITStep.Services
             return Task.CompletedTask;
         }
 
-        public async Task<string> EditTrackImage(string oldPath, IFormFile newFile)
+        public async Task<string> EditImage(string oldPath, IFormFile newFile)
         {
-            await DeleteTrackImage(oldPath);
-            return await SaveTrackImage(newFile);
+            await DeleteImage(oldPath);
+            return await SaveImage(newFile);
         }
 
-        public async Task<string> SaveTrackImage(IFormFile file)
+        public async Task<string> SaveImage(IFormFile file)
         {
             string root = environment.WebRootPath;  
             string name = Guid.NewGuid().ToString();

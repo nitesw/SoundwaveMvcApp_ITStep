@@ -46,7 +46,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
             return View("Upsert");
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Playlist model)
+        public async Task<IActionResult> Create(PlaylistDto model)
         {
             if (!ModelState.IsValid)
             {

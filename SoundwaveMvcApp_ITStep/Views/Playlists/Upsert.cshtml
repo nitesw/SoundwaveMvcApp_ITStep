@@ -14,16 +14,30 @@
 
 <h1 class="text-white mb-4">@(create ? "Create New" : "Edit") Playlist</h1>
 
-<form class="row g-3" method="post" asp-action="@(create ? "Create" : "Edit")">
+<form class="row g-3" method="post" enctype="multipart/form-data" asp-action="@(create ? "Create" : "Edit")">
     <div class="col-6">
         <label asp-for=Title class="form-label text-white">Title <strong class="text-danger">*</strong></label>
         <input asp-for=Title type="text" maxlength="100" class="form-control" placeholder="Enter the title..." autocomplete="off">
         <span asp-validation-for="Title" class="small text-danger"></span>
     </div>
+    <input hidden asp-for=ImgUrl />
     <div class="col-6">
-        <label asp-for="ImgUrl" class="form-label text-white">ImgUrl <strong class="text-danger">*</strong></label>
-        <input asp-for="ImgUrl" type="url" class="form-control" placeholder="Enter the image url..." required autocomplete="off">
-        <span asp-validation-for="ImgUrl" class="small text-danger"></span>
+        <div class="d-flex">
+            @if (!create)
+            {
+                <img src="@Model.ImgUrl" alt="@Model.Title" class="square-image" style="width:70px;" />
+            }
+            else
+            {
+                <img src="~/images/no-image.jpg" class="square-image" style="width:70px;" />
+            }
+            <div class="w-100 ms-2">
+                <label asp-for="Image" class="form-label text-white">Image <strong class="text-danger">*</strong></label>
+                <input asp-for="Image" class="form-control" type="file" id="formFile" accept=".pjp,.jpg,.pjpeg,.jpeg,.jfif,.png">
+                <span class="small text-danger" asp-validation-for="Image"></span>
+            </div>
+
+        </div>
     </div>
     <div class="col-12 mb-3">
         <label asp-for=Description class="form-label text-white">Description</label>

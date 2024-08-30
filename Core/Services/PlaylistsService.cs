@@ -13,12 +13,14 @@ namespace SoundwaveMvcApp_ITStep.Services
     {
         private SoundwaveDbContext ctx;
         private readonly IEmailSender emailSender;
+        private readonly IFilesService filesService;
         private readonly IMapper mapper;
 
-        public PlaylistsService(IMapper mapper, SoundwaveDbContext ctx, IEmailSender emailSender)
+        public PlaylistsService(IMapper mapper, SoundwaveDbContext ctx, IEmailSender emailSender, IFilesService filesService)
         {
             this.ctx = ctx;
             this.emailSender = emailSender;
+            this.filesService = filesService;
             this.mapper = mapper;
         }
 
@@ -47,13 +49,33 @@ namespace SoundwaveMvcApp_ITStep.Services
             return mapper.Map<PlaylistDto>(playlist);
         }
 
-        public async Task CreateItem(Playlist model, string userEmail)
+        public async Task CreateItem(PlaylistDto model, string userEmail)
         {
-            ctx.Playlists.Add(model);
-            ctx.SaveChanges();
+            var user = await ctx.Users
+                .AsTracking()
+                .FirstOrDefaultAsync(u => u.Email == userEmail);
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            var entity = mapper.Map<Playlist>(model);
+
+            entity.ImgUrl = await filesService.SaveImage(model.Image);
+            entity.UserId = user.Id;
+            ctx.Entry(user).State = EntityState.Unchanged;
+            entity.User = user;
+
+            ctx.Playlists.Add(entity);
+
+            await ctx.SaveChangesAsync();
+
             await emailSender.SendEmailAsync(userEmail, $"New Playlist: {model.Title}", $"<h1>You've created new playlist on Soundwave</h1>");
         }
-        public void DeleteItem(int id)
+
+
+        public async Task DeleteItem(int id)
         {
             var playlist = ctx.Playlists
                 .Include(p => p.PlaylistTracks)
@@ -61,7 +83,11 @@ namespace SoundwaveMvcApp_ITStep.Services
 
             if (playlist == null) return;
 
+            if (playlist.ImgUrl != null)
+                await filesService.DeleteImage(playlist.ImgUrl);
+
             ctx.PlaylistTrack.RemoveRange(playlist.PlaylistTracks!);
+
             ctx.Playlists.Remove(playlist);
             ctx.SaveChanges();
         }
@@ -109,10 +135,15 @@ namespace SoundwaveMvcApp_ITStep.Services
 
             return mapper.Map<PlaylistDto>(playlist);
         }
-        public void EditItem(PlaylistDto model)
+        public async Task EditItem(PlaylistDto model)
         {
             var playlist = ctx.Playlists.Find(model.Id);
             if (playlist == null) return;
+
+            if (model.Image != null)
+            {
+                model.ImgUrl = await filesService.EditImage(model.ImgUrl, model.Image);
+            }
 
             mapper.Map(model, playlist);
             ctx.Entry(playlist).State = EntityState.Modified;

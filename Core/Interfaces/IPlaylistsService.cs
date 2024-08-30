@@ -12,10 +12,10 @@ namespace Core.Interfaces
     {
         List<PlaylistDto> GetPlaylists(string userId);
         PlaylistDto GetPlaylist(int playlistId, string userId);
-        Task CreateItem(Playlist model, string userEmail);
-        void DeleteItem(int id);
+        Task CreateItem(PlaylistDto model, string userEmail);
+        Task DeleteItem(int id);
         PlaylistDto EditItem(int id);
-        void EditItem(PlaylistDto model);
+        Task EditItem(PlaylistDto model);
         void AddTrackToPlaylist(int playlistId, int trackId);
         void RemoveTrackFromPlaylist(int playlistId, int trackId);
     }

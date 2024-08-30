@@ -9,8 +9,8 @@ namespace Core.Interfaces
 {
     public interface IFilesService
     {
-        Task<string> SaveTrackImage(IFormFile file);
-        Task DeleteTrackImage(string path);
-        Task<string> EditTrackImage(string oldPath, IFormFile newFile);
+        Task<string> SaveImage(IFormFile file);
+        Task DeleteImage(string path);
+        Task<string> EditImage(string oldPath, IFormFile newFile);
     }
 }

@@ -21,17 +21,6 @@ namespace Data.Data
 
             modelBuilder.Entity<PlaylistTrack>().HasKey(x => new { x.PlaylistId, x.TrackId });
 
-            /*modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
-            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
-            modelBuilder.Entity<User>().HasData(new List<User>()
-            {
-                new User() { Id = 1, Username = "admin", Email = "admin@mail.com", Password = "adminpass", Likes = 0, Playlists = 0, IsAdmin = true},
-                new User() { Id = 2, Username = "damnsss", Email = "damnsss@mail.com", Password = "1234pass", Likes = 0, Playlists = 1, IsAdmin = false},
-                new User() { Id = 3, Username = "uzibook", Email = "uzibook@mail.com", Password = "passsword1234", Likes = 12, Playlists = 2, IsAdmin = false},
-                new User() { Id = 4, Username = "zxcnewr", Email = "zxcnewr@mail.com", Password = "pass1234", Likes = 0, Playlists = 0, IsAdmin = false},
-                new User() { Id = 5, Username = "Moomaszh", Email = "moomaszh@mail.com", Password = "pass0000", Likes = 5, Playlists = 0, IsAdmin = false},
-            });*/
-
             modelBuilder.Entity<Genre>().HasData(new List<Genre>()
             {
                 new Genre() { Id = 1, Name = "None" },
@@ -69,11 +58,6 @@ namespace Data.Data
             });
 
             modelBuilder.Entity<Track>().HasIndex(s => s.Title).IsUnique();
-            /*modelBuilder.Entity<Track>().HasData(new List<Track>()
-            {
-                new Track() {Id = 1, Title = "Test Song", GenreId = 2, IsPublic = true, TrackUrl = "randomsite.com/songurl.mp3", ImgUrl="https://i.redd.it/lhg9d9b80lz61.png",  UploadDate = DateTime.Now.Date, AdditionalTags = "true, tags", ArtistName = "Me", Description = "True test music" },
-                new Track() {Id = 2, Title = "Test Song 2", GenreId = 1, IsPublic = false, TrackUrl = "aaa.com/mp3", ImgUrl="https://preview.redd.it/o94pn5h60lz61.png?width=1080&crop=smart&auto=webp&s=7464db335ee53167d2f6e2288d162711ed0a31d1",  UploadDate = DateTime.Now.Date }
-            });*/
         }  
     }
 }
