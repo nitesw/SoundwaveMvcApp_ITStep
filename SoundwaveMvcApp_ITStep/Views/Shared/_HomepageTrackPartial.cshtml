@@ -7,9 +7,9 @@
 <div class="col">
     <div class="homepage-track">
         @* TODO: onclcik get to the track page *@
-        <a asp-controller="Music" asp-action="Details" asp-route-id="@Model.Id">
-            <img src="@Model.ImgUrl" alt="@Model.Title" draggable="false" class="mb-2 w-100 square-image" />
-        </a>
+        <div class="track" data-src="@Url.Content("~/audios/boys love art.mp3")">
+            <button class="play-track-button square-btn mb-2 p-0"><img src="@Model.ImgUrl" alt="@Model.Title" draggable="false" class="w-100 square-image" /></button>
+        </div>
         <div class="d-flex justify-content-between">
             <div >
                 <a asp-controller="Music" asp-action="Details" asp-route-id="@Model.Id" class="track-title"><h5 class="mb-0">@Model.Title</h5></a>

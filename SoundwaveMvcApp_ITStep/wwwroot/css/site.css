@@ -32,9 +32,10 @@ body {
     transform: scale(2.3);
 }
 
-.track-title{
+.track-title {
     text-decoration: none;
     color: white;
+    transition: all 0.1s ease;
 }
 .track-title:hover {
     color: #adb5bd;
@@ -53,6 +54,18 @@ body {
     height: auto;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+    transition: all 0.3s ease;
+}
+.square-btn {
+    border-radius: 3px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background-color: transparent;
+}
+.square-image:hover {
+    opacity: 0.7;
 }
 
 :root {
@@ -97,4 +110,9 @@ body {
 .plyr--audio .plyr__controls {
     padding-left: 0 !important;
     margin-left: 0 !important;
+}
+
+.play-track-button{
+    border: none;
+    border-radius: 5px;
 }
