@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Soundwave</title>
     @* <link rel="stylesheet" href="~/css/bootstrap.min.css"/> *@
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -57,11 +58,29 @@
         </main>
     </div>
 
-    <footer class="border-top bg-dark footer text-white">
-        <div class="container">
-            &copy; 2024 - Soundwave
+    @* <div id="track-list">
+        <div class="track" data-src="@Url.Content("~/audios/boys love art.mp3")">
+            <button class="play-track-button">Play Track 1</button>
         </div>
-    </footer>
+    </div> *@
+
+    <div id="footer-player-container" class="border-top bg-dark footer text-white position-fixed">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <div>
+                    <button id="loop-toggle" class="pe-0"><i id="loop-icon" class="bi bi-repeat"></i></button>
+                </div>
+                <div class="w-100">
+                    <audio id="footer-audio-player" controls>
+                        <source id="footer-audio-source" src="" type="audio/mp3" />
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

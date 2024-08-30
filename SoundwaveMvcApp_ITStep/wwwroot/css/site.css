@@ -54,3 +54,47 @@ body {
     aspect-ratio: 1 / 1;
     object-fit: cover;
 }
+
+:root {
+    --plyr-range-fill-background: white;
+    --plyr-color-main: #495057;
+}
+.plyr--full-ui .plyr__controls {
+    border-radius: 10px;
+    background: transparent;
+}
+.plyr__controls > button {
+    background: transparent;
+}
+.plyr__progress {
+    background: transparent;
+}
+.plyr__controls button {
+    color: white;
+}
+.plyr__time--current {
+    color: white;
+}
+.plyr__time--duration {
+    color: white;
+}
+#loop-toggle {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-right: 3px;
+    padding: 0;
+}
+#loop-toggle > i:hover {
+    border-radius: 5px;
+    background: #495057;
+}
+#loop-toggle > .bi {
+    font-size: 18px;
+    padding: 3px 6px 5px 6px;
+}
+.plyr--audio .plyr__controls {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
