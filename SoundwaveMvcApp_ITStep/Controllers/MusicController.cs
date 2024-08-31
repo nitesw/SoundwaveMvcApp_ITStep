@@ -36,6 +36,7 @@ namespace SoundwaveMvcApp_ITStep.Controllers
         {
             var isLiked = musicService.IsLiked(id);
             ViewBag.IsLiked = isLiked;
+            ViewBag.Playlists = musicService.GetUserPlaylists(UserId);
 
             return View(musicService.GetDetails(id));
         }

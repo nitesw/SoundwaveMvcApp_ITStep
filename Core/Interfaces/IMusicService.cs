@@ -20,5 +20,6 @@ namespace Core.Interfaces
         List<GenreDto> LoadGenres();
         TrackDto GetDetails(int id);
         bool IsLiked(int id);
+        List<PlaylistDto> GetUserPlaylists(string userId);
     }
 }

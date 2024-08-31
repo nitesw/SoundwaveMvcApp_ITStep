@@ -19,11 +19,11 @@ namespace Core.Validations
                 .MaximumLength(100)
                 .Must(UniqueTitle).WithMessage("The track with this title is already exists.");
             RuleFor(x => x.AdditionalTags)
-                .MaximumLength(150);
+                .MaximumLength(40);
             RuleFor(x => x.ArtistName)
-                .MaximumLength(50);
+                .MaximumLength(20);
             RuleFor(x => x.Description)
-                .MaximumLength(1000);
+                .MaximumLength(1000).WithMessage("The description is larger than 1000 symbols.");
         }
 
         private bool UniqueTitle(TrackDto track, string title)

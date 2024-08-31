@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const audioSource = document.getElementById('footer-audio-source');
     const playTrackButtons = document.querySelectorAll('.play-track-button');
     let isLooping = false;
+    let currentButton = null;
 
     function toggleLoopIcon() {
         if (isLooping) {
@@ -61,35 +62,53 @@ document.addEventListener('DOMContentLoaded', () => {
             audioPlayer.restart();
             audioPlayer.play();
         }
+        else {
+            togglePlayIcon(true);
+        }
     });
 
     playTrackButtons.forEach(button => {
         button.addEventListener('click', function () {
             const trackSrc = this.parentElement.getAttribute('data-src');
-            const playIcon = this.querySelector('img[data-state="play"]');
-            const pauseIcon = this.querySelector('img[data-state="pause"]');
 
-            if (audioPlayer.playing) {
+            if (audioPlayer.playing && currentButton === this) {
                 audioPlayer.pause();
-                playIcon.style.display = 'block';
-                pauseIcon.style.display = 'none';
+                togglePlayIcon(true);
             } else {
-                audioSource.src = trackSrc;
-                audioPlayer.source = {
-                    type: 'audio',
-                    sources: [
-                        {
-                            src: trackSrc,
-                            type: 'audio/mp3'
-                        }
-                    ]
-                };
+                if (currentButton !== this) {
+                    audioSource.src = trackSrc;
+                    audioPlayer.source = {
+                        type: 'audio',
+                        sources: [
+                            {
+                                src: trackSrc,
+                                type: 'audio/mp3'
+                            }
+                        ]
+                    };
+                }
                 audioPlayer.play();
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'block';
+                currentButton = this;
+                togglePlayIcon(false);
             }
         });
     });
+
+    function togglePlayIcon(isPaused) {
+        if (currentButton) {
+            const playIcon = currentButton.querySelector('img[data-state="play"]');
+            const pauseIcon = currentButton.querySelector('img[data-state="pause"]');
+            if (isPaused) {
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            }
+            else {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            }
+        }
+    }
+
 
     const dateElements = document.querySelectorAll('.upload-date');
     dateElements.forEach(el => {

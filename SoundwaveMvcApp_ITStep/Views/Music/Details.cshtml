@@ -1,6 +1,7 @@
 ﻿@model TrackDto
 @{
     bool isLiked = ViewBag.IsLiked;
+    List<PlaylistDto> playlists = ViewBag.Playlists;
 }
 
 <div class="d-flex align-items-start justify-content-between details-info-design">
@@ -25,15 +26,46 @@
 </div>
 
 
-@if (!isLiked)
-{
-    <a asp-controller="Likes" asp-action="AddLike" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-light h-75">
-        <i class="bi bi-heart"></i>
-    </a>
-}
-else
-{
-    <a asp-controller="Likes" asp-action="RemoveLike" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-light h-75">
-        <i class="bi bi-heart"></i>
-    </a>
-}
+<div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex">
+        <div>
+            @if (!isLiked)
+            {
+                <a asp-controller="Likes" asp-action="AddLike" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-light h-100">
+                    <i class="bi bi-heart"></i>
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Likes" asp-action="RemoveLike" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-light h-100">
+                    <i class="bi bi-heart"></i>
+                </a>
+            }
+        </div> 
+        <div class="ms-2">
+            <div class="dropdown">
+                <button class="btn btn-light h-75" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-music-note-list"></i></button>
+                <ul class="dropdown-menu">
+                    <li><a asp-controller="Playlists" asp-action="Create" class="dropdown-item">Create new playlist</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    @foreach (var playlist in playlists)
+                    {
+                        <a asp-controller="Playlists" asp-action="AddTrack" asp-route-playlistId="@playlist.Id" asp-route-trackId="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item">@playlist.Title</a>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex">
+        <h4 class="text-white mb-0">Genre: <span class="fw-light">@Model.GenreName</span></h4>
+        <h4 class="text-white ms-4 mb-0">Additional Tags: <span class="fw-light">@(Model.AdditionalTags ?? "None")</span></h4>
+    </div>
+    <div>
+        <h4 class="text-white mb-0">Artist: <span class="fw-light">@(Model.ArtistName ?? "No Artist")</span></h4>
+    </div>
+</div>
+<hr class="text-white"/>
+<div class="text-white d-flex flex-column">
+    <h1 class="mb-3">Description</h1>
+    <p>@Model.Description</p>
+</div>

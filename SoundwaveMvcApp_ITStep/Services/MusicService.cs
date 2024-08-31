@@ -130,6 +130,16 @@ namespace SoundwaveMvcApp_ITStep.Services
             return mapper.Map<TrackDto>(track);
         }
 
+        public List<PlaylistDto> GetUserPlaylists(string userId)
+        {
+            var playlists = ctx.Playlists
+               .Where(x => x.UserId == userId)
+               .Include(x => x.User)
+               .ToList();
+
+            return mapper.Map<List<PlaylistDto>>(playlists);
+        }
+
         public bool IsLiked(int id)
         {
             var ids = httpContext.Session.Get<List<int>>("liked_items");
