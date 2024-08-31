@@ -121,7 +121,10 @@ namespace SoundwaveMvcApp_ITStep.Services
 
         public TrackDto GetDetails(int id)
         {
-            var track = ctx.Tracks.Find(id);
+            var track = ctx.Tracks
+                .Include(x => x.Genre)
+                .Include(x => x.User)
+                .FirstOrDefault(x => x.Id == id);
             if (track == null) return null!;
 
             return mapper.Map<TrackDto>(track);

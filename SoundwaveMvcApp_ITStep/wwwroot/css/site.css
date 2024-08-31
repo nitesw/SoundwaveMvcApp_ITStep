@@ -121,7 +121,37 @@ body {
     margin-left: 0 !important;
 }
 
-.play-track-button{
+.play-track-button {
     border: none;
     border-radius: 5px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    background-color: transparent;
+}
+.detail-play-btn {
+    width: 64px;
+    height: 64px;
+    margin-left: 4px;
+    padding: 0;
+}
+.detail-play-icon {
+    height: 64px;
+    width: 64px;
+    transition: all 0.1s ease;
+}
+.detail-play-icon:hover {
+    opacity: 0.8;
+}
+
+.details-info-design{
+    border: 1px solid white;
+    border-radius: 5px;
+    border-top: none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: 10px;
+    padding-top: 20px;
+    margin-top: -16px;
+    margin-bottom: 10px;
 }

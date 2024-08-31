@@ -3,7 +3,28 @@
     bool isLiked = ViewBag.IsLiked;
 }
 
-<h1 class="text-white">@Model.Title</h1>
+<div class="d-flex align-items-start justify-content-between details-info-design">
+    <div class="d-flex align-items-start justify-content-between w-100">
+        <div class="d-flex align-items-center">
+            <div class="track" data-src="@Url.Content(Model.TrackUrl)">
+                <button class="detail-play-btn play-track-button btn text-white">
+                    <img src="~/images/play-circle.svg" class="bi bi-play-circle detail-play-icon" data-state="play" />
+                    <img src="~/images/pause-circle.svg" class="bi bi-pause-circle detail-play-icon" data-state="pause" style="display: none;" />
+                </button>
+            </div>
+            <div class="ms-4">
+                <h1 class="text-white mb-0">@Model.Title</h1>
+                <h4 class="text-secondary">@Model.UserUsername</h4>
+            </div>
+        </div>
+        <div class="upload-date text-white me-4 mt-3 fs-5" data-currentDate="@DateTime.Now" data-uploadDate="@Model.UploadDate"></div>
+    </div>
+    <div style="width:512px;" class="p-1">
+        <img src="@Model.ImgUrl" alt="@Model.Title" class="square-image" />
+    </div>
+</div>
+
+
 @if (!isLiked)
 {
     <a asp-controller="Likes" asp-action="AddLike" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-light h-75">

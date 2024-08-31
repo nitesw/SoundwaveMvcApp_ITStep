@@ -1,0 +1,27 @@
+﻿@model PlaylistDto
+
+<div class="col">
+    <div>
+        @* TODO: play full playlist on click (all tracks) *@
+        @* <div class="track" data-src="@Url.Content(Model.TrackUrl)">
+            <button class="play-track-button square-btn mb-2 p-0"><img src="@Model.ImgUrl" alt="@Model.Title" draggable="false" class="w-100 square-image-homepage" /></button>
+        </div> *@
+        <a asp-controller="Playlists" asp-action="ShowPlaylist" asp-route-playlistId="@Model.Id">
+            <img src="@Model.ImgUrl" alt="@Model.Title" draggable="false" class="mb-2 w-100 square-image-homepage" />
+        </a>
+        <div class="d-flex justify-content-between">
+            <div>
+                <a asp-controller="Playlists" asp-action="ShowPlaylist" asp-route-playlistId="@Model.Id" class="track-title"><h5 class="mb-0">@Model.Title</h5></a>
+                <h6 class="text-secondary">@Model.UserName</h6>
+            </div>
+            <div>
+                <a asp-controller="Playlists" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-info">
+                    <i class="bi bi-pencil-fill"></i>
+                </a>
+                <a asp-controller="Playlists" asp-action="Delete" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-danger">
+                    <i class="bi bi-trash-fill"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

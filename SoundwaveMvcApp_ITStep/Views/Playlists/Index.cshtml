@@ -11,13 +11,14 @@
 
 @if (Model.Any())
 {
-    @foreach (var playlist in Model)
-    {
-        <div class="text-white">@playlist.Id - @playlist.Title | @playlist.UserName - @playlist.UserId | @playlist.Tracks.Count</div>
-        <a asp-controller="Playlists" asp-action="ShowPlaylist" asp-route-playlistId="@playlist.Id">Show @playlist.Title</a>
-        <a asp-controller="Playlists" asp-action="Edit" asp-route-id="@playlist.Id">Edit @playlist.Title</a>
-        <a asp-controller="Playlists" asp-action="Delete" asp-route-id="@playlist.Id" asp-route-returnUrl="@Context.Request.Path">Delete @playlist.Title</a>
-    }
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mt-4 g-4">
+            @foreach (var item in Model)
+            {
+                <partial name="_PlaylistsPartial" model="@item" />
+            }
+        </div>
+    </div>
 }
 else
 {

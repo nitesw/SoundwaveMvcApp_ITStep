@@ -74,7 +74,6 @@ namespace SoundwaveMvcApp_ITStep.Services
             await emailSender.SendEmailAsync(userEmail, $"New Playlist: {model.Title}", $"<h1>You've created new playlist on Soundwave</h1>");
         }
 
-
         public async Task DeleteItem(int id)
         {
             var playlist = ctx.Playlists
