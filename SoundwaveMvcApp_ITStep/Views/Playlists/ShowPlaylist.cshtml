@@ -1,21 +1,61 @@
 ﻿@model PlaylistDto
 ﻿@{
     ViewData["Title"] = "Playlist " + Model.Title;
+    List<TrackDto> likedTracks = ViewBag.LikedTracks;
 }
 
-<h1 class="text-white">Playlist info</h1>
-<h2 class="text-white">@Model.Id | @Model.Title</h2>
+<div class="d-flex align-items-start justify-content-between details-info-design">
+    <div class="d-flex align-items-start justify-content-between w-100">
+        <div class="d-flex align-items-center">
+            <div class="ms-4">
+                <h1 class="text-white mb-0">@Model.Title</h1>
+                <h4 class="text-secondary">@Model.UserName</h4>
+            </div>
+        </div>
+    </div>
+    <div style="width:512px;" class="p-1">
+        <img src="@Model.ImgUrl" alt="@Model.Title" class="square-image" />
+    </div>
+</div>
 
 <div class="mt-3">
     @if (Model.Tracks.Any())
     {
         @foreach (var track in Model.Tracks)
         {
-            <div class="text-white">@track.Id | @track.Title</div>
+            <div class="d-flex align-items-start justify-content-between">
+                <div class="d-flex align-items-start">
+                    <div class="track" data-src="@Url.Content(track.TrackUrl)">
+                        <button class="play-track-button square-btn p-0" style="width:200px"><img src="@track.ImgUrl" alt="@track.Title" draggable="false" class="w-100 square-image-homepage" /></button>
+                    </div>
+                    <div class="ms-3">
+                        <a asp-controller="Music" asp-action="Details" asp-route-id="@track.Id" class="track-title"><h3 class="mb-0">@track.Title</h3></a>
+                        <h4 class="text-secondary">@track.UserUsername</h4>
+                    </div>
+                </div>
+                <div class="d-flex align-items-start">
+                    @if (likedTracks.FirstOrDefault(x => x.Id == track.Id) == null)
+                    {
+                        <a asp-controller="Likes" asp-action="AddLike" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path?playlistId=@Model.Id" class="btn btn-outline-light h-100">
+                            <i class="bi bi-heart"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Likes" asp-action="RemoveLike" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path?playlistId=@Model.Id" class="btn btn-light h-100">
+                            <i class="bi bi-heart"></i>
+                        </a>
+                    }
+                    <a asp-controller="Playlists" asp-action="RemoveTrack" asp-route-playlistId="@Model.Id" asp-route-trackId="@track.Id" asp-route-returnUrl="@Context.Request.Path?playlistId=@Model.Id" class="btn btn-outline-danger ms-1">
+                        <i class="bi bi-trash-fill"></i>
+                    </a>
+                </div>
+            </div>
+            <hr class="text-white"/>
         }
     }
     else
     {
-        <h2 class="text-white">No tracks here yet</h2>
+        <h4 class="text-white">No tracks here yet</h4>
     }
 </div>

@@ -109,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     const dateElements = document.querySelectorAll('.upload-date');
     dateElements.forEach(el => {
         const currentDate = el.getAttribute('data-currentDate');

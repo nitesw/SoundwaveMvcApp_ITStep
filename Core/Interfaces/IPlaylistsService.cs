@@ -18,5 +18,6 @@ namespace Core.Interfaces
         Task EditItem(PlaylistDto model);
         void AddTrackToPlaylist(int playlistId, int trackId);
         void RemoveTrackFromPlaylist(int playlistId, int trackId);
+        List<TrackDto> LikedTracks();
     }
 }

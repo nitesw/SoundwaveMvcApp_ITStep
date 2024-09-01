@@ -2,6 +2,7 @@
 @{
     bool isLiked = ViewBag.IsLiked;
     List<PlaylistDto> playlists = ViewBag.Playlists;
+    ViewData["Title"] = Model.Title;
 }
 
 <div class="d-flex align-items-start justify-content-between details-info-design">
@@ -24,7 +25,6 @@
         <img src="@Model.ImgUrl" alt="@Model.Title" class="square-image" />
     </div>
 </div>
-
 
 <div class="d-flex justify-content-between align-items-center">
     <div class="d-flex">
@@ -67,5 +67,5 @@
 <hr class="text-white"/>
 <div class="text-white d-flex flex-column">
     <h1 class="mb-3">Description</h1>
-    <p>@Model.Description</p>
+    <p>@(Model.Description ?? "No Description.")</p>
 </div>

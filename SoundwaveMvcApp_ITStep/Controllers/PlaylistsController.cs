@@ -30,6 +30,8 @@ namespace SoundwaveMvcApp_ITStep.Controllers
 
             if (playlist != null)
             {
+                var likedTracks = playlistService.LikedTracks();
+                ViewBag.LikedTracks = likedTracks;
                 return View(playlist);
             }
             else

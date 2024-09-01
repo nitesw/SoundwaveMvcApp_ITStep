@@ -3,21 +3,25 @@ using Core.Dtos;
 using Core.Interfaces;
 using Data.Data;
 using Data.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using SoundwaveMvcApp_ITStep.Extensions;
 
 namespace SoundwaveMvcApp_ITStep.Services
 {
     public class PlaylistsService : IPlaylistsService
     {
+        private readonly HttpContext httpContext;
         private SoundwaveDbContext ctx;
         private readonly IEmailSender emailSender;
         private readonly IFilesService filesService;
         private readonly IMapper mapper;
 
-        public PlaylistsService(IMapper mapper, SoundwaveDbContext ctx, IEmailSender emailSender, IFilesService filesService)
+        public PlaylistsService(IMapper mapper, SoundwaveDbContext ctx, IEmailSender emailSender, IFilesService filesService, IHttpContextAccessor contextAccessor)
         {
+            this.httpContext = contextAccessor.HttpContext!;
             this.ctx = ctx;
             this.emailSender = emailSender;
             this.filesService = filesService;
@@ -41,6 +45,7 @@ namespace SoundwaveMvcApp_ITStep.Services
                 .Include(x => x.User)
                 .Include(x => x.PlaylistTracks!)
                 .ThenInclude(x => x.Track)
+                .ThenInclude(x => x.User)
                 .Where(x => x.UserId == userId)
                 .FirstOrDefault(x => x.Id == playlistId);
 
@@ -148,6 +153,14 @@ namespace SoundwaveMvcApp_ITStep.Services
             ctx.Entry(playlist).State = EntityState.Modified;
 
             ctx.SaveChanges();
+        }
+
+        public List<TrackDto> LikedTracks()
+        {
+            var ids = httpContext.Session.Get<List<int>>("liked_items") ?? new();
+            var likedTracks = ctx.Tracks.Include(x => x.Genre).Include(x => x.User).Where(x => ids.Contains(x.Id)).ToList();
+
+            return mapper.Map<List<TrackDto>>(likedTracks);
         }
     }
 }
